@@ -1,10 +1,6 @@
-I ESTABLISH A WAY TO ASSIGN PEOPLE TO YOUR LOCAL NETWORK AND SUPPLY THEM INTERNET ACCESS 
-LETS SAY YOU HAVE A PHONE USE YOUR HOTSPOT TO YOUR LAPTOP SMART TV OR WHATEVER DEVICE USES TELNET OR 
-"ICROSOFT" REMOTE OR THE CLIENT SOFTWARE PROVIDE BY RANTRIPPLE AND THE IP ADDRESS I GIVE YOU 
-AND NOW YOU ARE ON THE WEB AND NOW YOU CAN TURN OFF YOUR HOTSPOT YOU ARE NOW CONNECTED TO RANTRIPPLE 
+I have established a way to assign people to your local network and supply them with internet access. Let's say you have a phone. You can use your hotspot to connect to your laptop, smart TV, or any other device using Telnet or Microsoft Remote Desktop, or the client software provided by Rantripple. Once you have the IP address, you are on the web. You can then turn off your hotspot, and you will still be connected to Rantripple.
 
-THE VIRTUAL MESH NETWORK IS A WHOLE NOTHER BALL GAME THIS CAN BE DEPLOYED BY BUSSINESS, INTERNET COMPANIENS, IOT,
-MILITARY DRONE SWARM THE APPILCATION ARE ENDLESS
+The virtual mesh network is a whole other ball game. This can be deployed by businesses, internet companies, IoT, military drone swarms—the applications are endless.
 
 inTERNET SPEED
 <img width="494" alt="image" src="https://github.com/Corcoin/rantripple.com/assets/89755034/e7927bb3-28d0-44fe-ba4e-a6541fb7739d">
