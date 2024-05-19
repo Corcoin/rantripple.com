@@ -2,7 +2,8 @@ I have established a way to assign people to your local network and supply them 
 
 The virtual mesh network is a whole other ball game. This can be deployed by businesses, internet companies, IoT, military drone swarms—the applications are endless.
 
-inTERNET SPEED
+
+INTERNET SPEED
 <img width="494" alt="image" src="https://github.com/Corcoin/rantripple.com/assets/89755034/e7927bb3-28d0-44fe-ba4e-a6541fb7739d">
 
 
