@@ -24,6 +24,11 @@ class NMOSFET:
         self.source = 0 if self.gate < 2 else 1  # Simple model, turn on if gate voltage > 2V
 
     def get_state(self):
+
+        
+
+
+        
         return {'drain': self.drain, 'gate': self.gate, 'source': self.source}
 
 class ANDGate:
