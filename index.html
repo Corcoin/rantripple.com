@@ -2,572 +2,258 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>RantRipple </title>
-    <link rel="icon" href="rock.png" type="png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RantRipple</title>
+    <style>
+        /* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f19f06;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    border-radius: 10px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  header {
+    background-color: #333;
+    color: #fc9a08;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  header h1 {
+    font-size: 2em;
+  }
+  
+  header p {
+    font-size: 1.2em;
+  }
+  
+  main {
+    padding: 20px 0;
+  }
+  
+  section {
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  
+  section h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+  
+  li {
+    margin-bottom: 10px;
+  }
+  .arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 15px solid #f0f0f0;
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
+  footer {
+    background-color: #0a0909;
+    color: #faa108;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  /* Media Queries for Responsive Design */
+  
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 1.5em;
+    }
+    header p {
+      font-size: 1em;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 1.2em;
+    }
+    header p {
+      font-size: 0.8em;
+    }
+  }
+  nav {
+    background-color: #333;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  nav ul li {
+    margin: 0 10px;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  nav ul li a:hover {
+    background-color: #555;
+  }
     
+    </style>
 </head>
 <body>
-    <video id="video-background" autoplay muted loop>
-        <source src="852292-hd_1728_1080_25fps.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <header>
+        <div class="container">
+            <h1>RantRipple Centralized Internet Hub</h1>
+            <p>Experience a secure, private, and optimized internet.</p>
+        </div>
+        <img src="free-trial-for-7days.webp" alt="Image" class="corner-image">
+
+        <h2>"For everyone: no signup required. <br>Try it out! You must have some sort of internet connection, <br>whether it's cellular data or a hotspot; it doesn't matter."</h2>
+        <div class="arrow-down"></div>
+    </header>
     
-    
-   <header>
-    <h1>Rantripple Research and Development: Pioneering the Future of Software</h1>
-    
-    <nav>
-        <ul>
-            
-            <li><a href="#features-benefits" >Features-Benefits</a></li>
-            <li><a href="https://github.com/Corcoin/rantripple.com/blob/main/README.md" >"Demo"</a></li>
-            <li><a href="#contact" >Contact</a></li>
-            
-            
-            
-        </ul>
-    </nav>
-   
-   </header>
-   <h2></h2>
-  
-<h1></h1>
-<div id="remoteVideos"></div>
-<div class="container">
-    <div class="link-box">
 
-        <a href="https:// www.ni.com" target="_blank" class="button" class="external-link" >
-            <i class="fas fa-search"></i> NI
-        </a>
-
-        <a href="https://www.macys.com" target="_blank" class="button" class="external-link" >
-            <i class="fas fa-search"></i> Macys
-        </a>
-
-        <a href="https://www.goarmy.com" target="_blank" class="button" class="external-link" >
-            <i class="fas fa-search"></i> Goarmy
-        </a>
-
-        <a href="https://www.google.com" target="_blank" class="button" class="external-link" >
-            <i class="fab fa-google"></i> Google
-        </a>
-        <br>
-        <a href="https://www.youtube.com" target="_blank" class="button" class="external-link">
-            <i class="fab fa-youtube"></i> YouTube
-        </a>
-        <br>
-        <a href="https://www.openai.com" target="_blank" class="button" class="external-link">
-            <i class="fas fa-brain"></i> OpenAI
-        </a>
-        <br>
-        <a href="https://www.twitter.com" target="_blank" class="button" class="external-link">
-            <i class="fab fa-twitter"></i> Twitter
-        </a>
-        <br>
-        <a href="https://www.facebook.com" target="_blank" class="button" class="external-link">
-            <i class="fab fa-facebook"></i> Facebook
-        </a>
-        <br>
-        <a href="https://www.linkedin.com" target="_blank" class="button" class="external-link">
-            <i class="fab fa-linkedin"></i> LinkedIn
-        </a>
-        <a href="https://corcoin.github.io/alureserver/" target="_blank" class="button" class="external-link">
-            <i class="fab fa-search"></i> AluReserver
-        </a>
+    <main>
+        <section class="benefits">
+            <div class="container">
+                <h2>Why Choose Our Service?</h2>
+                <ul>
+                    <li><strong>Enhanced Security:</strong> Our service provides advanced encryption and protection against cyber threats, ensuring your online activities are secure and private.</li>
+                    <li><strong>Privacy Protection:</strong> We prioritize your privacy by offering anonymous browsing and preventing tracking by third parties.</li>
+                    <li><strong>Performance Optimization:</strong> Experience faster browsing speeds and optimized performance for websites and online applications.</li>
+                    <li><strong>Global Accessibility:</strong> Access content from around the world without restrictions, bypassing geo-blocks and censorship.</li>
+                    <li><strong>User Control:</strong> Customize your internet experience with user-friendly settings and controls, giving you the power to manage your online presence.</li>
+                    <li><strong>Reliable Support:</strong> Our team is available 24/7 to assist you with any questions or issues you may encounter.</li>
+                    <li><strong>Cost-Effective:</strong> Enjoy our service at an affordable price, with flexible subscription options to suit your needs.</li>
+                </ul>
+            </div>
+        </section>
+        <section class="setup">
+            <div class="container">
+                <h2>How to Connect</h2>
+                <div class="setup-step">
+                    <h3>Windows</h3>
+                    <ol>
+                        <li>Go to Settings > Network & Internet > Proxy.</li>
+                        <li>Enable "Use a proxy server".</li>
+                        <li>Enter the Address: <strong>192.168.1.78</strong> and Port: <strong>8088</strong>.</li>
+                        <li>Click "Save" to apply the settings.</li>
+                    </ol>
+                </div>
+                <br>
+                <div class="setup-step">
+                    <h3>Mac</h3>
+                    <ol>
+                        <li>Open System Preferences > Network.</li>
+                        <li>Select your network connection and click "Advanced".</li>
+                        <li>Go to the Proxies tab.</li>
+                        <li>Check "Web Proxy (HTTP)" and "Secure Web Proxy (HTTPS)".</li>
+                        <li>Enter the Address: <strong>192.168.1.78</strong> and Port: <strong>8088</strong>.</li>
+                        <li>Click "OK" and "Apply".</li>
+                    </ol>
+                </div>
+                <br>
+                <div class="setup-step">
+                    <h3>Raspberry Pi</h3>
+                    <ol>
+                        <li>Edit the /etc/environment file: <code>sudo nano /etc/environment</code>.</li>
+                        <li>Add the following lines:
+                            <pre>http_proxy="http://192.168.1.78:8088"
+https_proxy="http://192.168.1.78:8088"</pre>
+                        </li>
+                        <li>Save the file and reboot your Raspberry Pi.</li>
+                    </ol>
+                </div>
+                <br>
+                <div class="setup-step">
+                    <h3>Linux</h3>
+                    <ol>
+                        <li>Open Terminal and edit the environment file: <code>sudo nano /etc/environment</code>.</li>
+                        <li>Add the following lines:
+                            <pre>http_proxy="http://192.168.1.78:8088"
+https_proxy="http://192.168.1.78:8088"</pre>
+                        </li>
+                        <li>Save the file and run the command <code>source /etc/environment</code> to apply the settings.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
         
-        <br>
-        <a href="https://www.instagram.com" target="_blank" class="button" class="external-link">
-            <i class="fab fa-instagram"></i> Instagram
-        </a>
-        <br>
-        <a href="https://www.tiktok.com" target="_blank" class="button" class="external-link">
-            <i class="fab fa-tiktok"></i> Sorry TikTok
-            
-        </a>
-        <br>
-        <br>
-        <a href="https://www.bing.com" target="_blank" class="button" class="external-link">
-            <i class="fas fa-search"></i> Bing
-        </a>
+        <section class="why-us">
+            <div class="container">
+                <h2>Why Choose Us?</h2>
+                <p>At RantRipple Centralized Internet Hub, we are dedicated to providing you with a superior online experience. Here's why you should choose us:</p>
+                <ul>
+                    <li><strong>Advanced Technology:</strong> We utilize cutting-edge technology to ensure the highest level of security, privacy, and performance for our users.</li>
+                    <li><strong>Global Network:</strong> Our network spans the globe, allowing you to connect from anywhere in the world with ease.</li>
+                    <li><strong>Transparent Practices:</strong> We are committed to transparency in our operations, ensuring that you know how your data is being used and protected.</li>
+                    <li><strong>Customer Satisfaction:</strong> Our top priority is your satisfaction, and we strive to exceed your expectations in every interaction.</li>
+                    <li><strong>Continuous Improvement:</strong> We are constantly innovating and improving our service to provide you with the best possible experience.</li>
+                </ul>
+            </div>
+        </section>
+        <section class="future-roadmap">
+            <div class="container">
+                <h2>Future Roadmap</h2>
+                <p>At Centralized Internet Service, we are committed to continuous improvement. Here are some of our upcoming plans:</p>
+                <ul>
+                    <li>Enhanced security features</li>
+                    <li>Improved performance optimizations</li>
+                    <li>Expanded global network coverage</li>
+                    <li>Integration with emerging technologies</li>
+                    <li>Enhanced user customization options</li>
+                </ul>
+            </div>
+        </section>
         
-        <br>
-        <br>
-        <a href="http://www.rantripple.com" target="_blank" class="button" class="external-link">
-            <i class="fas fa-search"></i> RantRipple
-        </a>
-        <a href="https://www.nfl.com/" target="_blank" class="button" class="external-link">
-            <i class="fas fa-search"></i> NFL
-        </a>
-        <a href="https://www.yeti.com/austin-tx-flagship.html" target="_blank" class="button" class="external-link">
-            <i class="fas fa-search"></i> Yeti Austin-TX-Flagship
-        </a>
-        <a href="https://www.heb.com/" target="_blank" class="button" class="external-link">
-            <i class="fas fa-search"></i> H.E.B
-        </a>
-        <a href="https://www.allensboots.com/" target="_blank" class="button" class="external-link">
-            <i class="fas fa-search"></i> Allensboots Austin
-        </a>
-        <a href="https://krausesprings.net/" target="_blank" class="button" class="external-link">
-            <i class="fas fa-search"></i> Krausesprings Austin
-        </a>
-        
-    </div>
-    
-    <button class="accordion">Product Management Services  </button>
-    <div class="panel">
-      <p>It allows for user management (login, registration, profile viewing/updating) and product management (listing, creating, updating, and deleting products), as well as a search functionality that could be developed to search through the products or users based on specific criteria
-        <br>
-        <br>
-        /login: User authentication<br>
-        /register: User registration<br>
-        /profile: Fetch user profile<br>
-        /update-profile: Update user profile<br>
-        /products: List products<br>
-        /product/:id: Fetch a single product by ID<br>
-        /create-product: Create a new product<br>
-        /update-product/:id: Update an existing product<br>
-        /delete-product/:id: Delete a product<br>
-        /search: Search for products or users</p>
-    </div>
-    
-    <button class="accordion"> Printers Services  </button>
-    <div class="panel">
-      <p>functionalities such as listing available printers, submitting print jobs, checking the status of a print job, canceling print jobs, and maybe even updating printer settings. 
-        <br>
-        <br>
-        /printers: List available printers<br>
- /submit-job: Submit a new print job<br>
-/job-status/:jobId: Check the status of a specific print job<br>
-/cancel-job/:jobId: Cancel an existing print job<br>
-/printer/:printerId: Get details of a specific printer<br>
-/update-printer/:printerId: Update settings of a specific printer<br>
-/jobs: List all print jobs<br>
-/active-jobs: List all active print jobs<br>
-/completed-jobs: List all completed print jobs<br>
-/error-jobs: List all print jobs that ended with an error
-<br>
-<br>
-Printer Discovery and Management
-List Available Printers: Offer real-time discovery of available printers on the network, including details like printer name, type, location, and current status (online, offline, busy, etc.).
-Printer Details and Status: Provide comprehensive details about specific printers, such as ink levels, paper status, current job status, and other diagnostics.
-Update Printer Settings: Allow users or administrators to update printer settings remotely, such as default print quality, double-sided printing preferences, color settings, and more.
-<br>
-<br>
-Print Job Management
-Submit Print Jobs: Enable users to submit print jobs from various devices, selecting the printer, number of copies, page range, and other printing preferences.
-Print Job Queue Management: Allow users to view the queue of pending print jobs for each printer, reorder jobs, or prioritize urgent print jobs.
-Monitor Print Job Status: Offer the ability to check the status of individual print jobs, including progress, completion status, and error messages.
-Cancel or Pause Print Jobs: Provide options to cancel or pause print jobs, useful in situations where mistakes are made or priorities change.
-<br>
-<br>
-Print Job History and Analytics
-Completed and Error Jobs: Track and list completed jobs and jobs that ended with errors, including details like submission time, completion time, user, and error descriptions.
-Usage Analytics: Generate reports and analytics on printer usage, including volume of print jobs, frequently used printers, peak printing times, and more. This can help in optimizing resources and planning for maintenance.
-<br>
-<br>
-User and Access Management
-User Registration and Authentication: Securely manage user access to the printing services, including registration, login, and role-based access control.
-Print Quotas and Restrictions: Implement print quotas or restrictions for users or departments to manage printing resources and prevent misuse.
-<br>
-<br>
-Maintenance and Alerts
-Maintenance Alerts: Automatically notify administrators of maintenance needs, such as low ink or toner, paper jams, and other printer issues.
-Scheduled Maintenance: Offer the ability to schedule maintenance tasks and updates outside of peak usage hours to minimize disruptions.
-<br>
-Custom Services
-Mobile and Remote Printing: Enable printing from mobile devices or remote locations, allowing users to print documents when they are away from the office.
-Secure Printing: Implement secure printing features where print jobs are held until the user authenticates at the printer, ensuring confidentiality for sensitive documents.
-      </p>
-    </div>
-    
-    <button class="accordion"><h4> "#1 Seller" Mobile Device Enrollment and Management </h4> </button>
-    <div class="panel">
-      <p>
-        Device Enrollment and Management<br>
-        /enroll-device: Enroll a new device into the management system.<br>
-        /list-devices: List all enrolled devices, possibly with filtering options by user, device type, or status.<br>
-        /device-details/:deviceId: Get detailed information about a specific device, including hardware specs, installed apps, and current status.<br>
-        /update-device/:deviceId: Update device settings or configurations remotely.<br>
-        <br>
-        Configuration Profiles<br>
-        /create-profile: Create configuration profiles with specific settings, restrictions, Wi-Fi settings, VPN configurations, etc.<br>
-        /apply-profile/:deviceId: Apply a configuration profile to a specific device.<br>
-        /list-profiles: List all available configuration profiles.<br>
-        /update-profile/:profileId: Update the settings of an existing configuration profile.<br>
-        <br>
-        Application Management<br>
-        /install-app: Remotely install an application on a device.<br>
-        /list-apps/:deviceId: List all applications installed on a specific device.<br>
-        /update-app/:appId: Update an application to the latest version on selected devices.<br>
-        /remove-app: Remotely uninstall an application from a device.
-        <br>
-        <br>
-        Security and Compliance<br>
-        /lock-device/:deviceId: Remotely lock a device to prevent unauthorized access.<br>
-        /wipe-device/:deviceId: Remotely wipe a device to remove sensitive data, useful in case of loss or theft.<br>
-        /device-compliance/:deviceId: Check if a device complies with the organization's security policies.<br>
-        <br>
-        Monitoring and Reports<br>
-        /device-activity/:deviceId: Monitor activity logs of a device, including app usage, network activity, and security incidents.<br>
-        /generate-report: Generate reports on device compliance, app usage, security incidents, and overall fleet health.</p>
-    </div>
-    <button class="accordion"><h4>"#2 Seller" Cybersecurity Services</h4></button>
-<div class="panel">
-  <p>Threat Intelligence and Monitoring <br>
-    /threats: List current cybersecurity threats and alerts.<br>
-    /submit-threat: Allow users to report new threats.<br>
-    /threat-details/:threatId: Provide detailed information about specific threats.<br><br>
-    Vulnerability Assessment<br>
-    /scan: Initiate a vulnerability scan on specified assets.<br>
-    /scan-results/:scanId: Retrieve the results of a vulnerability scan.<br>
-    /scheduled-scans: List all scheduled vulnerability scans.<br><br>
-    Incident Response<br>
-    /report-incident: Report a new security incident.<br>
-    /incidents: List all reported security incidents.<br>
-    /incident-details/:incidentId: Get detailed information about a specific incident.<br><br>
-    Security Configuration and Management<br>
-    /configurations: List recommended security configurations.<br>
-    /apply-configuration: Apply a specific security configuration to an asset.<br>
-    /update-configuration/:configId: Update an existing security configuration.<br><br>
-    User and Access Management<br>
-    /users: List users with access to the cybersecurity services.<br>
-    /add-user: Add a new user with specific roles and permissions.<br>
-    /remove-user/:userId: Remove a user's access.<br><br>
-    Logs and Reporting<br>
-    /access-logs: Retrieve logs of access to the cybersecurity services.<br>
-    /generate-report: Generate reports based on security incidents, vulnerability scans, and other activities.</p>
-</div>
 
-<button class="accordion"> <h4>"#3 Seller" IT Services </h4></button>
-<div class="panel">
-  <p> Ticket Management<br>
-    /submit-ticket: Submit a new IT support ticket.<br>
-    /tickets: List all tickets, with filtering options by status (open, closed, pending), priority, or category.<br>
-    /ticket/:ticketId: Get details and update the status or details of a specific ticket.<br><br>
-    Asset Management<br>
-    /assets: List all IT assets, such as computers, software licenses, and other equipment.<br>
-    /register-asset: Add a new asset to the system.<br>
-    /asset/:assetId: Get details on a specific asset and update its information.<br><br>
-    User Support<br>
-    /user-accounts: List all user accounts with access to IT services and systems.<br>
-    /create-account: Create a new user account with specific roles and permissions.<br>
-    /reset-password: Reset the password for a user account.<br><br>
-    Infrastructure Monitoring<br>
-    /system-status: Get the current status of the IT infrastructure, including server health, network performance, and uptime.<br>
-    /alerts: List current alerts and issues detected in the IT infrastructure.<br>
-    /resolve-alert/:alertId: Mark an alert as resolved.<br><br>
-    Knowledge Base<br>
-    /articles: List all articles in the IT knowledge base.<br>
-    /submit-article: Add a new article or guide to the knowledge base.<br>
-    /article/:articleId: Get details on a specific article and update its content.</p>
-</div>
+        <section class="faq">
+            <div class="container">
+                <h2>Frequently Asked Questions</h2>
+                <h3>What is a Centralized Internet Service?</h3>
+                <p>Our centralized internet service provides a secure and optimized layer on top of the existing internet. It enhances your online experience by offering advanced security, privacy, and performance features.</p>
+                <h3>How is it beneficial?</h3>
+                <p>By using our service, you can enjoy a safer internet experience with encryption, protection against cyber threats, faster browsing speeds, and the ability to access global content without restrictions.</p>
+            </div>
+        </section>
+    </main>
 
-<button class="accordion"> E-Commerce Platform</button>
-<div class="panel">
-  <p>/products: Display products available for sale.<br>
-    /checkout: Process orders and payments.<br>
-    /user-profiles: Manage user profiles and order history.<br>
-    /inventory-management: Track and update inventory levels.</p>
-</div>
-
-<button class="accordion">  Educational Platform</button>
-<div class="panel">
-  <p>/courses: List available courses and materials.<br>
-    /enroll: Enroll students in courses.<br>
-    /submit-assignment: Submit assignments for grading.<br>
-    /grades: View grades and feedback.</p>
-</div>
-<button class="accordion">Healthcare Management System</button>
-<div class="panel">
-  <p>/patients: Manage patient records and appointments.<br>
-    /prescriptions: Handle prescription orders and renewals.<br>
-    /billing: Process billing and insurance claims.<br>
-    /lab-results: Share lab results with patients and physicians.</p>
-</div>
-
-<button class="accordion"> Real Estate Listing Service</button>
-<div class="panel">
-  <p>/listings: Display real estate listings.<br>
-    /schedule-viewing: Schedule property viewings.<br>
-    /submit-offer: Submit offers on properties.<br>
-    /agent-profiles: Manage profiles for real estate agents.</p>
-</div>
-
-<button class="accordion">Food Delivery Service</button>
-<div class="panel">
-  <p>/restaurants: List restaurants and available menus.<br>
-    /place-order: Place orders for delivery or pickup.<br>
-    /delivery-status: Track the status of deliveries.<br>
-    /user-reviews: Manage user reviews of restaurants and dishes.</p>
-</div>
-
-<button class="accordion">Travel and Booking System</button>
-<div class="panel">
-  <p>/flights: Search for and book flights.<br>
-    /hotels: Find and reserve hotel rooms.<br>
-    /car-rental: Book car rentals.<br>
-    /itinerary: Create and manage travel itineraries.</p>
-</div>
-<button class="accordion"> Event Management Platform</button>
-<div class="panel">
-  <p>/events: List upcoming events and ticket availability.<br>
-    /book-tickets: Book tickets for events.<br>
-    /event-creation: Allow users or organizers to create and manage events.<br>
-    /feedback: Collect feedback on events.</p>
-</div>
-
-<button class="accordion"><h4>"#4 Seller"Content Management System (CMS)</h4></button>
-<div class="panel">
-  <p>/create-content: Create articles, blogs, or other content.<br>
-    /edit-content: Edit existing content pieces.<br>
-    /delete-content: Remove content from the platform.<br>
-    /content-analytics: Analyze content performance and engagement.</p>
-</div>
-<button class="accordion">Project Management Tool</button>
-<div class="panel">
-  <p>/projects: Create and manage projects.<br>
-    /tasks: Assign and track tasks within projects.<br>
-    /collaborators: Manage project collaborators.<br>
-    /project-files: Upload and manage project files.
-</div>
-
-<button class="accordion"> Social Networking Service</button>
-<div class="panel">
-  <p>/create-profile: Set up user profiles.<br>
-    /post: Post updates, photos, or videos.<br>
-    /connect: Connect with friends or followers.<br>
-    /messaging: Enable direct messaging between users.</p>
-</div>
-<button class="accordion"><h4>"#5 Seller"Digital Asset Management System</h4></button>
-<div class="panel">
-  <p>/upload-asset: Upload digital assets like images, videos, and documents.<br>
-    /assets: List and categorize digital assets.<br>
-    /update-asset: Update metadata and permissions for assets.<br>
-    /delete-asset: Remove assets from the system.</p>
-</div>
-
-<button class="accordion">Environmental Monitoring Platform </button>
-<div class="panel">
-  <p>/sensor-data: Collect and store data from environmental sensors.<br>
-    /data-analysis: Analyze sensor data for trends and anomalies.<br>
-    /alerts: Generate alerts based on specific thresholds.<br>
-    /report-generation: Create detailed environmental reports.</p>
-</div>
-
-<button class="accordion"> Personal Finance Management Tool</button>
-<div class="panel">
-  <p>/accounts: Manage bank accounts and transactions.<br>
-  /budgets: Create and track budgets.<br>
-  /investments: Track investments and returns.<br>
-  /financial-goals: Set and monitor progress towards financial goals.</p>
-</div>
-
-<button class="accordion"> <h4>"#6 Seller" Supply Chain Management System</h4></button>
-<div class="panel">
-  <p>/inventory: Track inventory levels across warehouses.<br>
-    /orders: Manage orders and shipments.<br>
-    /suppliers: Keep track of suppliers and purchase orders.<br>
-    /logistics: Optimize logistics and transportation routes.</p>
-</div>
-<button class="accordion">Smart Home Management Service</button>
-<div class="panel">
-  <p>/devices: Register and manage smart home devices.<br>
-    /device-control: Control devices remotely (e.g., lights, thermostat).<br>
-    /automation-rules: Set up automation rules based on conditions.<br>
-    /energy-usage: Monitor and optimize energy consumption.</p>
-</div>
-
-<button class="accordion">  Fitness and Wellness Platform</button>
-<div class="panel">
-  <p>/workouts: Schedule and track workouts.<br>
-    /nutrition: Log food intake and monitor nutrition.<br>
-    /progress: Track fitness progress and milestones.<br>
-    /coach-feedback: Receive feedback and tips from a coach.</p>
-</div>
-
-<button class="accordion">Library Management System</button>
-<div class="panel">
-  <p>/books: Catalog and manage book inventory.<br>
-    /borrow: Check out books to library members.<br>
-    /return: Manage the return of borrowed items.<br>
-    /members: Register and manage library member accounts.</p>
-</div>
-
-<button class="accordion">Ride-Sharing Platform</button>
-<div class="panel">
-  <p>/request-ride: Request a ride to a destination.<br>
-    /driver-status: Update and track driver status.<br>
-    /ride-history: View past rides for drivers and riders.<br>
-    /payments: Manage payment processing for rides.</p>
-</div>
-<button class="accordion"><h4>"#7 Seller"Gaming Platform</h4></button>
-<div class="panel">
-  <p>/games: List available games.<br>
-    /play: Start or join a game session.<br>
-    /leaderboards: Display game leaderboards and scores.<br>
-    /player-stats: Track player statistics and achievements.</p>
-</div>
-
-<button class="accordion">Legal Services Platform</button>
-<div class="panel">
-  <p>/consultations: Book consultations with legal professionals.<br>
-    /document-preparation: Prepare and review legal documents.<br>
-    /case-management: Manage ongoing legal cases and communications.<br>
-    /billing: Handle billing and payments for legal services.</p>
-</div>
-<button class="accordion"> Pet Care Management Platform</button>
-<div class="panel">
-  <p>/pets: Register and manage pet profiles, including medical history, vaccinations, and dietary preferences.<br>
-    /appointments: Schedule and manage appointments with veterinarians, groomers, and other pet care services.<br>
-    /reminders: Set up reminders for vaccinations, medications, and other recurring pet care tasks.<br>
-    /pet-tracking: Offer GPS tracking services for pets to monitor their location and activity.<br>
-    /community: Create a community forum for pet owners to share advice, experiences, and coordinate pet-related activities.</p>
-</div>
-
-<button class="accordion"> Freelance Services Marketplace</button>
-<div class="panel">
-  <p>/profiles: Allow freelancers to create profiles showcasing their skills, portfolio, and rates.<br>
-    /projects: Post project listings where clients can specify project requirements, budget, and timelines.<br>
-    /proposals: Enable freelancers to submit proposals to projects, including bids and project plans.<br>
-    /reviews: Facilitate a review system where clients and freelancers can rate and review each other after project completion.<br>
-    /payments: Manage secure payment processing for project milestones and final delivery.</p>
-</div>
-   
-    <br>
-    <br>
-    <br>
-    
-    <br>
-    <br>
-   
-<br>
-<br>
-
-
-    <!--div class="iframe-container">
-        <iframe src="http://localhost:3000/" frameborder="6" width="1200" height="400" allowfullscreen></iframe>
-    </div-->
-    
-     
-        
-    
-    </section>
-    
-    <!--<section id="bo">
-        <a href="hot.html" class="button">Ready RantRippler Click here!</a>
-
-    </section-->
-    
-    
-     
-    <section id="features-benefits">
-        <h2>Features & Benefits</h2>
-        <ul>
-            <li><strong>The RantRipplers Community:</strong> Being a part of RantRipple means joining an active, engaged community of "RantRipplers." Our platform is a live ecosystem where users connect, share, and grow together. this are Demo to you Watch in real time as the RantRipple site becomes a gateway to a world of connections, staying open and keeping you linked to our network through the cloud. It's a dynamic, interactive experience that redefines what it means to be online.</li>
-            <li><strong>Engagement and Growth Opportunities:</strong> RantRipple isn't just a service; it's a platform for growth. Display your "link" on our site and tap into the vast potential of our visitor traffic. Whether you're looking to expand your audience, find new customers, or simply share your passion with the world, RantRipple offers the visibility and engagement you need. Let us help you take your online presence to the next level.</li>
-            <li><strong>Your Link to Growth and Opportunity:</strong> Looking to expand your reach? Showcase your "link" on RantRipple and tap into our high-traffic network to boost your visibility. Whether you're looking to grow your business, share your passion, or simply connect, we're here to bridge the gap between you and your audience.</li>
-            <li><strong>Dive into the next evolution of internet connectivity with RantRipple:</strong> Discover the freedom, security, and possibilities that come with our Internet Computer. The future is here, and it's waiting for you..</li>
-            
-            <li><strong>Joining the Future of Internet:</strong> RantRipple is more than just a service; it's a movement towards the future of internet connectivity. We've gone beyond the conventional to bring you a service that's not only innovative but transformative. Don't just take our word for it; become a part of the RantRipple revolution today and see for yourself how we're turning the world of internet services on its head. The future is here, and it's called RantRipple.</li>
-        </ul>
-    </section>
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <form id="contactForm">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
-
-            <button type="submit">Submit</button>
-        </form>
-    </section>
-     
-</div>
-<section id="user-section">
-<div class="user-section">
-    
-    
-    
-    <ul id="userList"></ul>
-    
-</div>
-</section>
-<script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
-<script>
-emailjs.init("dDYLxMuh0fb1BvILz");
-
-    // Example function to send an email using EmailJS
-    function sendEmail() {
-        let serviceID = 'service_6zvbf1e';
-        let templateID = 'template_f1v57vq';
-        let templateParams = {
-        userName: 'John Doe', // The recipient's name
-        userEmail: 'john.doe@example.com', // The recipient's email address
-        userMessage: 'This is a test message from the contact form.' // The message submitted by the user
-    };
-    
-        emailjs.send(serviceID, templateID, templateParams)
-            .then(response => console.log('Email successfully sent!', response))
-            .catch(error => console.error('Failed to send email:', error));
-    }
-</script>
-<script>
-
-    document.addEventListener('DOMContentLoaded', function() {
-    fetch('/increment-count')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('visitCount').innerText = `Visits: ${data.count}`;
-        })
-        .catch(error => console.error('Error fetching count:', error));
-});
-
-
-</script>
-<script>
-    var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    /* Toggle between adding and removing the "active" class,
-    to highlight the button that controls the panel */
-    this.classList.toggle("active");
-
-    /* Toggle between hiding and showing the active panel */
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
-    }
-  });
-}
-</script>
-
-
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="script.js"></script>
-<header>
-    <h3>My Social Media</h3>
-    <a href="https://www.facebook.com/brian.wesson.96/" class="fa fa-facebook"></a>
-    <a href="https://twitter.com/bwesson82" class="fa fa-twitter"></a>
-    <footer>© 2023 RantRipple. CEO Brian J Wesson</footer>
-
-</header>
-
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Centralized Internet Service. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
