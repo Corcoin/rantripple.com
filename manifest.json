@@ -1,0 +1,9 @@
+{
+  "name": "Python Proxy Server",
+  "version": "1.0.0",
+  "description": "Simple HTTP Proxy Server in Python",
+  "author": "Your Name",
+  "dependencies": {
+    "python": ">=3.6"
+  }
+}
