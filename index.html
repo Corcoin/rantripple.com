@@ -8,143 +8,313 @@
     <title>RantRipple</title>
     <style>
         /* Reset CSS */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+        * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0f0f0f; /* Dark background */
+  color: #eee; /* Light text */
+  line-height: 1.6;
+  margin: 0;
+  border-radius: 8px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+header {
+  background-color: #333;
+  color: #fc9a08;
+  padding: 30px 0;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 3em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+header .cta-button {
+  display: inline-block;
+  background-color: #fc9a08;
+  color: #333;
+  font-size: 1.2em;
+  padding: 12px 30px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+header .cta-button:hover {
+  background-color: #f0c94e; /* Lighter shade on hover */
+}
+
+
+main {
+  padding: 20px 0;
+}
+
+section {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #1a1a1a; /* Dark section background */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+section h2 {
+  font-size: 2em; /* Larger section headings */
+  margin-bottom: 10px;
+  color: #faa108; /* Accent color */
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 15px solid #1a1a1a; /* Match section background */
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+footer {
+  background-color: #222; /* Dark footer background */
+  color: #faa108; /* Accent color */
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Media Queries for Responsive Design */
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.5em;
   }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f19f06;
-    color: #333;
-    line-height: 1.6;
-    margin: 0;
-    border-radius: 10px;
+  header p {
+    font-size: 1em;
   }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  header {
-    background-color: #333;
-    color: #fc9a08;
-    padding: 20px 0;
-    text-align: center;
-  }
-  
+}
+
+@media (max-width: 480px) {
   header h1 {
     font-size: 2em;
   }
-  
   header p {
-    font-size: 1.2em;
+    font-size: 0.8em;
   }
-  
-  main {
-    padding: 20px 0;
-  }
-  
-  section {
-    padding: 20px;
-    margin-bottom: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-  }
-  
-  section h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-  }
-  
-  ul {
-    list-style-type: none;
-  }
-  
-  li {
-    margin-bottom: 10px;
-  }
-  .arrow-down {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 15px solid #f0f0f0;
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
-  footer {
-    background-color: #0a0909;
-    color: #faa108;
-    text-align: center;
-    padding: 10px 0;
+nav {
+  background-color: #222; /* Dark navigation background */
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin: 0 10px;
+}
+
+nav ul li a {
+  color: #eee; /* Light navigation text */
+  text-decoration: none;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: #333; /* Slightly lighter on hover */
+}
+
+  .port-list li {
+  margin-bottom: 5px;
+  text-align: right; /* Align text to the right */
+  font-size: 14px;
+  color: #333;
+}
+.setup {
+  background-color: #0a0a0a;
+  color: #f19f06;
+  padding: 50px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  font-size: 2.5em;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.dhcp-server, .client-configuration {
+  background-color: #333;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.dhcp-server h3, .client-configuration h3 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #f19f06;
+}
+
+.dhcp-server ol, .client-configuration .setup-step {
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+.setup-step {
+  background-color: #555;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.setup-step h4 {
+  font-size: 1.5em;
+  color: #f19f06;
+  margin-bottom: 10px;
+}
+
+.setup-step ol {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+pre {
+  background-color: #222;
+  color: #f19f06;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+code {
+  background-color: #333;
+  color: #f19f06;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+/* Media Query for Responsive Design */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2em;
   }
-  
-  /* Media Queries for Responsive Design */
-  
-  @media (max-width: 768px) {
-    header h1 {
-      font-size: 1.5em;
-    }
-    header p {
-      font-size: 1em;
-    }
+  .dhcp-server h3, .client-configuration h3 {
+    font-size: 1.5em;
   }
-  
-  @media (max-width: 480px) {
-    header h1 {
-      font-size: 1.2em;
-    }
-    header p {
-      font-size: 0.8em;
-    }
+  .setup-step h4 {
+    font-size: 1.3em;
   }
-  nav {
-    background-color: #333;
-  }
-  
-  nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-  }
-  
-  nav ul li {
-    margin: 0 10px;
-  }
-  
-  nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 10px;
-    transition: background-color 0.3s;
-  }
-  
-  nav ul li a:hover {
-    background-color: #555;
-  }
+}
+.future-roadmap {
+  background-color: #0a0a0a;
+  color: #f19f06;
+  padding: 50px 0;
+}
+
+.future-roadmap .container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.future-roadmap h2 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+}
+
+.future-roadmap p {
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+.future-roadmap ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.future-roadmap ul li {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+.faq {
+  background-color: #f5f5f5;
+  color: #333;
+  padding: 50px 0;
+}
+
+.faq .container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq h2 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.faq .faq-item {
+  margin-bottom: 30px;
+}
+
+.faq h3 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+}
+
+.faq p {
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+
     
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>RantRipple Centralized Internet Hub</h1>
-            <p>Experience a secure, private, and optimized internet.</p>
-        </div>
-        
-
-        <h2>"For everyone: no signup required. <br>Try it out! </h2>
-        <div class="arrow-down"></div>
-    </header>
+        <h1>RantRipple Centralized Internet Hub</h1>
+        <p>Experience a secure, private, and optimized internet.</p>
+        <a href="#" class="cta-button">For everyone: no signup required. Try it out!</a>
+      </header>
     
 
     <main>
@@ -163,11 +333,22 @@
             </div>
         </section>
         <section class="setup">
+            <div class="container">
+                <div class="container">
+                    
+                      <!-- Example of adding port numbers dynamically -->
+                      <!-- You can generate this list dynamically using JavaScript if needed -->
+                      
+                      
+                    </ul>
+                  </div>
             
             <div class="container">
-        <h1>DHCP Setup Instructions for people without Internet</h1>
-
-        <h2>DHCP Server Configuration</h2>
+                <h2>DHCP Server Configuration</h2>
+                <div class="setup-step">
+                    
+        
+        <br>
         <ol>
             <li>Configure your DHCP server with the following details:</li>
             <li><strong>Server IP Address:</strong> <code>192.168.1.1</code></li>
@@ -176,14 +357,15 @@
             <li><strong>Default Gateway:</strong> <code>192.168.1.1</code></li>
             <li><strong>DNS Server:</strong> <code>8.8.8.8</code> (Google's public DNS server)</li>
         </ol>
-        <br>       
-                <br>
+        </div>
+        <br>
 
         <h2>Client Configuration Instructions</h2>
 
         <div>
             <div class="container">
-                <h2>How to Connect</h2>
+                
+                <br>
                 <div class="setup-step">
                     <h3>Windows</h3>
                     <ol>
@@ -232,9 +414,11 @@ https_proxy="http://192.168.1.78:8088"</pre>
             </div>
         </section>
         
+        
         <section class="why-us">
-            <div class="container">
-                 <h1>These are the ports you can use</h1>
+            <h2>Port-List</h2>
+            <div class="setup-step">
+                
         
                 <p>8080, 8081, 8082, 8083, 8084, 8085, 8086, 8087, 8088, 8089, 
                     8090, 8091, 8092, 8093, 8094, 8095, 8096, 8097, 8098, 8099, 
@@ -344,37 +528,45 @@ https_proxy="http://192.168.1.78:8088"</pre>
         </section>
         <section class="future-roadmap">
             <div class="container">
-                <h2>Future Roadmap</h2>
-                <p>At RantRipple Centralized Internet Service, we are committed to continuous improvement. Here are some of our upcoming plans:</p>
-                <ul>
-                    <li>Enhanced security features</li>
-                    <li>Improved performance optimizations</li>
-                    <li>Expanded global network coverage</li>
-                    <li>Integration with emerging technologies</li>
-                    <li>Enhanced user customization options</li>
-                </ul>
+              <h2>Future Roadmap</h2>
+              <p>At RantRipple Centralized Internet Service, we are committed to continuous improvement. Here are some of our upcoming plans:</p>
+              <ul>
+                <li><strong>Enhanced Security Features:</strong> Implement advanced encryption and threat detection technologies.</li>
+                <li><strong>Improved Performance Optimizations:</strong> Enhance server infrastructure for faster speeds and reliability.</li>
+                <li><strong>Expanded Global Network Coverage:</strong> Increase our server locations globally for better accessibility.</li>
+                <li><strong>Integration with Emerging Technologies:</strong> Incorporate AI and machine learning for smarter internet management.</li>
+                <li><strong>Enhanced User Customization Options:</strong> Provide more settings and controls for personalized user experiences.</li>
+              </ul>
             </div>
-        </section>
+          </section>
+          
         
 
-        <section class="faq">
+          <section class="faq">
             <div class="container">
-                <h2>Frequently Asked Questions</h2>
+              <h2>Frequently Asked Questions</h2>
+              
+              <div class="faq-item">
                 <h3>What is a Centralized Internet Service?</h3>
                 <p>RantRipple centralized internet service provides a secure and optimized layer on top of the existing internet. It enhances your online experience by offering advanced security, privacy, and performance features.</p>
+              </div>
+              
+              <div class="faq-item">
                 <h3>How is it beneficial?</h3>
                 <p>By using our service, you can enjoy a safer internet experience with encryption, protection against cyber threats, faster browsing speeds, and the ability to access global content without restrictions.</p>
+              </div>
             </div>
-        </section>
+          </section>
+          
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2023 RantRipple Centralized Internet Service. All rights reserved.Owner/CEO Brian Jerral Wesson</p>
-        <div>
-            <a href="https://www.tiktok.com/@rantripple" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
-            <a href="https://www.facebook.com/brian.wesson.96/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
-        </div>
+            <p>&copy; 2023 RantRipple Centralized Internet Service. All rights reserved.</p>
+            <div>
+                <a href="https://www.tiktok.com/@rantripple" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+                <a href="https://www.facebook.com/brian.wesson.96/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+            </div>
         </div>
     </footer>
 </body>
