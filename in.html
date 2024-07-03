@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Security Dashboard</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav {
+    background-color: #444;
+    color: #fff;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    border-bottom: 2px solid #444;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border: 1px solid #ddd;
+    overflow-x: auto;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Network Security Dashboard</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#detection">Threat Detection</a></li>
+            <li><a href="#response">Response</a></li>
+            <li><a href="#analysis">Forensic Analysis</a></li>
+            <li><a href="#logs">Logs & Visualization</a></li>
+            <li><a href="#honeypot">Honeypots</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>This dashboard provides information and tools for network security monitoring and response.</p>
+        </section>
+        <section id="detection">
+            <h2>Threat Detection</h2>
+            <div id="packet-sniffing">
+                <h3>Packet Sniffing</h3>
+                <p>Monitors network traffic for suspicious activities.</p>
+                <pre><code>
+import socket
+import struct
+import textwrap
+
+def sniff_packets():
+    conn = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.ntohs(3))
+
+    while True:
+        raw_data, addr = conn.recvfrom(65536)
+        dest_mac, src_mac, eth_proto, data = ethernet_frame(raw_data)
+        print('\nEthernet Frame:')
+        print(f'Destination: {dest_mac}, Source: {src_mac}, Protocol: {eth_proto}')
+
+        # IPv4
+        if eth_proto == 8:
+            (version, header_length, ttl, proto, src, target, data) = ipv4_packet(data)
+            print('IPv4 Packet:')
+            print(f'Version: {version}, Header Length: {header_length}, TTL: {ttl}')
+            print(f'Protocol: {proto}, Source: {src}, Target: {target}')
+                </code></pre>
+            </div>
+            <div id="ip-tracing">
+                <h3>IP Tracing</h3>
+                <p>Tracks the source of network attacks.</p>
+                <pre><code>
+import geoip2.database
+
+def trace_ip(ip_address):
+    with geoip2.database.Reader('GeoLite2-City.mmdb') as reader:
+        response = reader.city(ip_address)
+        print(f'City: {response.city.name}, Country: {response.country.name}')
+                </code></pre>
+            </div>
+        </section>
+        <section id="response">
+            <h2>Response</h2>
+            <div id="firewall">
+                <h3>Firewall Rules</h3>
+                <p>Automatically update firewall rules to block threats.</p>
+                <pre><code>
+import subprocess
+
+def update_firewall(ip_address):
+    subprocess.run(["sudo", "ufw", "deny", f'from {ip_address}'])
+                </code></pre>
+            </div>
+            <div id="threat-intelligence">
+                <h3>Threat Intelligence</h3>
+                <p>Integrate real-time threat intelligence data.</p>
+                <pre><code>
+import requests
+
+def get_threat_intelligence():
+    response = requests.get('https://api.threatintelligenceplatform.com/v1/malicious-url-detection?url=example.com&apiKey=YOUR_API_KEY')
+    data = response.json()
+    print(data)
+                </code></pre>
+            </div>
+        </section>
+        <section id="analysis">
+            <h2>Forensic Analysis</h2>
+            <div id="deep-packet-inspection">
+                <h3>Deep Packet Inspection</h3>
+                <p>Inspects packet data for detailed threat analysis.</p>
+                <pre><code>
+def deep_packet_inspection(packet):
+    print("Packet Data:", packet)
+                </code></pre>
+            </div>
+            <div id="file-integrity-monitoring">
+                <h3>File Integrity Monitoring</h3>
+                <p>Monitors file changes to detect tampering.</p>
+                <pre><code>
+import hashlib
+import os
+
+def file_integrity_monitoring(file_path):
+    with open(file_path, 'rb') as f:
+        file_hash = hashlib.sha256(f.read()).hexdigest()
+    print(f'File Hash: {file_hash}')
+                </code></pre>
+            </div>
+        </section>
+        <section id="logs">
+            <h2>Logs & Visualization</h2>
+            <div id="centralized-logging">
+                <h3>Centralized Logging</h3>
+                <p>Uses ELK stack for centralized logging and visualization.</p>
+                <pre><code>
+input {
+    beats {
+        port => 5044
+    }
+}
+
+filter {
+    grok {
+        match => { "message" => "%{COMBINEDAPACHELOG}" }
+    }
+}
+
+output {
+    elasticsearch {
+        hosts => ["localhost:9200"]
+    }
+    stdout { codec => rubydebug }
+}
+                </code></pre>
+            </div>
+        </section>
+        <section id="honeypot">
+            <h2>Honeypots</h2>
+            <div id="cowrie-honeypot">
+                <h3>Cowrie Honeypot</h3>
+                <p>Set up and analyze activity from a Cowrie honeypot.</p>
+                <pre><code>
+# Installation commands
+sudo apt-get update
+sudo apt-get install -y git python3-virtualenv libssl-dev libffi-dev build-essential
+
+# Clone Cowrie repository
+git clone http://github.com/cowrie/cowrie
+cd cowrie
+
+# Set up virtual environment
+virtualenv --python=python3 cowrie-env
+source cowrie-env/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run Cowrie
+bin/cowrie start
+                </code></pre>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Network Security Dashboard</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
