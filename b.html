@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Response Platform</title>
+    <style>
+        /* Reset default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+}
+
+header h1 {
+    margin: 0;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.tabs {
+    margin-bottom: 20px;
+}
+
+.tablink {
+    background-color: #f0f0f0;
+    border: none;
+    color: #333;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.tablink.active {
+    background-color: #ddd;
+}
+
+.tabcontent {
+    display: none;
+    padding: 20px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.tabcontent h3 {
+    margin-top: 0;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Incident Response Platform</h1>
+    </header>
+    <main>
+        <section id="frontend">
+            <h2>Frontend Interface</h2>
+            <div class="tabs">
+                <button class="tablink active" onclick="openTab(event, 'logIncident')">Log Incident</button>
+                <button class="tablink" onclick="openTab(event, 'assignTask')">Assign Task</button>
+                <button class="tablink" onclick="openTab(event, 'notifications')">Notifications</button>
+                <button class="tablink" onclick="openTab(event, 'reports')">Reports</button>
+            </div>
+            <div id="logIncident" class="tabcontent">
+                <h3>Log Incident</h3>
+                <form id="logIncidentForm">
+                    <label for="incidentType">Incident Type:</label>
+                    <input type="text" id="incidentType" required>
+                    <label for="incidentDescription">Description:</label>
+                    <textarea id="incidentDescription" rows="4" required></textarea>
+                    <button type="submit" onclick="logIncident(event)">Log Incident</button>
+                </form>
+                <div id="logIncidentResult"></div>
+            </div>
+            <div id="assignTask" class="tabcontent">
+                <h3>Assign Task</h3>
+                <form id="assignTaskForm">
+                    <label for="taskName">Task Name:</label>
+                    <input type="text" id="taskName" required>
+                    <label for="assignedTo">Assigned To:</label>
+                    <input type="text" id="assignedTo" required>
+                    <button type="submit" onclick="assignTask(event)">Assign Task</button>
+                </form>
+                <div id="assignTaskResult"></div>
+            </div>
+            <div id="notifications" class="tabcontent">
+                <h3>Notifications</h3>
+                <div id="notificationList"></div>
+            </div>
+            <div id="reports" class="tabcontent">
+                <h3>Reports</h3>
+                <button onclick="generateReport()">Generate Report</button>
+                <div id="reportResult"></div>
+            </div>
+        </section>
+
+        <section id="backend">
+            <h2>Backend Setup (Node.js and Express)</h2>
+            <p>To set up the backend, follow these steps:</p>
+            <ol>
+                <li>Create a file named <code>index.js</code> on your local machine.</li>
+                <li>Copy the following Node.js and Express code into <code>index.js</code>:</li>
+            </ol>
+            <pre><code class="javascript">
+// Node.js and Express backend setup
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const Incident = require('./models/Incident'); // Replace with your Incident model path
+const Task = require('./models/Task'); // Replace with your Task model path
+
+// Replace with your MongoDB connection string
+const mongoURI = 'mongodb://localhost:27017/incident-response';
+
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.log(err));
+
+app.use(bodyParser.json());
+
+// Log incident endpoint
+app.post('/log-incident', async (req, res) => {
+    const { incidentType, incidentDescription } = req.body;
+
+    try {
+        const newIncident = new Incident({
+            type: incidentType,
+            description: incidentDescription
+        });
+
+        await newIncident.save();
+
+        res.status(200).json({ message: 'Incident logged successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// Assign task endpoint
+app.post('/assign-task', async (req, res) => {
+    const { taskName, assignedTo } = req.body;
+
+    try {
+        const newTask = new Task({
+            name: taskName,
+            assignedTo: assignedTo
+        });
+
+        await newTask.save();
+
+        res.status(200).json({ message: 'Task assigned successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+</code></pre>
+            <p>Replace <code>/log-incident</code> and <code>/assign-task</code> with your desired endpoints for incident logging and task assignment.</p>
+            <p>Ensure you have MongoDB installed and running locally, and replace <code>mongoURI</code> with your MongoDB connection string.</p>
+            <p>Run <code>node index.js</code> to start the server.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Incident Response Platform. All rights reserved.</p>
+    </footer>
+
+    <script >
+        // Tab navigation
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Log incident
+async function logIncident(event) {
+    event.preventDefault();
+
+    const form = document.getElementById('logIncidentForm');
+    const incidentType = form.elements['incidentType'].value;
+    const incidentDescription = form.elements['incidentDescription'].value;
+
+    try {
+        const response = await fetch('/log-incident', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ incidentType, incidentDescription })
+        });
+
+        const data = await response.json();
+        document.getElementById('logIncidentResult').textContent = data.message;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Assign task
+async function assignTask(event) {
+    event.preventDefault();
+
+    const form = document.getElementById('assignTaskForm');
+    const taskName = form.elements['taskName'].value;
+    const assignedTo = form.elements['assignedTo'].value;
+
+    try {
+        const response = await fetch('/assign-task', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ taskName, assignedTo })
+        });
+
+        const data = await response.json();
+        document.getElementById('assignTaskResult').textContent = data.message;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Initialize page with default tab
+document.getElementsByClassName('tablink')[0].click();
+
+    </script>
+</body>
+</html>
