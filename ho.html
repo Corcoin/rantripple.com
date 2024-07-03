@@ -224,6 +224,79 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
         <p>&copy; 2024 User Authentication System. All rights reserved.</p>
     </footer>
 
-    <script src="scripts.js"></script>
+    <script>
+        // Tab navigation
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// User registration
+async function registerUser(event) {
+    event.preventDefault();
+
+    const form = document.getElementById('registerForm');
+    const username = form.elements['regUsername'].value;
+    const email = form.elements['regEmail'].value;
+    const password = form.elements['regPassword'].value;
+
+    try {
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, email, password })
+        });
+
+        const data = await response.json();
+        document.getElementById('regResult').textContent = data.message;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// User login
+async function loginUser(event) {
+    event.preventDefault();
+
+    const form = document.getElementById('loginForm');
+    const email = form.elements['loginEmail'].value;
+    const password = form.elements['loginPassword'].value;
+
+    try {
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+        if (data.token) {
+            localStorage.setItem('token', data.token);
+            document.getElementById('loginResult').textContent = 'Login successful. Token stored in localStorage.';
+        } else {
+            document.getElementById('loginResult').textContent = 'Login failed. Please check your credentials.';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+    </script>
 </body>
 </html>
