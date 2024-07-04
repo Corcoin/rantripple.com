@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Login and Sign Up</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('background.jpg'); /* Background image */
+            background-size: cover; /* Cover entire background */
+            background-position: center; /* Center the background image */
+            margin: 0;
+            color: rgb(255, 103, 2); /* Default text color */
+            overflow: hidden; /* Prevent scrolling when off-canvas menu is open */
+            background: grey;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* Ensure relative positioning for absolute child */
+            z-index: 1; /* Ensure content is above the background */
+        }
+
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for the login box */
+            color: rgb(255, 103, 2); /* Orange text color */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 300px;
+            text-align: center;
+            z-index: 2; /* Ensure form container is above the background */
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        input {
+            width: calc(100% - 20px); /* Adjust input width to accommodate padding */
+            padding: 5px;
+            margin-bottom: 5px;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            color: black; /* Black text color */
+        }
+
+        button {
+            width: calc(100% - 20px); /* Adjust button width to accommodate padding */
+            padding: 10px;
+            background-color: rgb(255, 103, 2); /* Orange button background */
+            color: black; /* Black button text color */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: rgb(255, 103, 2); /* Darker shade of orange on hover */
+        }
+
+        #message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Off-canvas menu styles */
+        .offcanvas {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Start off-canvas */
+            width: 250px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+            transition: left 0.3s ease;
+            z-index: 3; /* Ensure off-canvas menu is above everything */
+            overflow-y: auto;
+            padding: 20px;
+            color: white; /* White text color */
+        }
+
+        .offcanvas.open {
+            left: 0; /* Slide in when open */
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            color: white; /* White close button text color */
+        }
+
+        /* Header styles */
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            color: rgb(255, 103, 2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 2; /* Ensure header is above the background */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>RANTRIPPLE CENTRALIZED INTERNET HUB</div>
+        <div>Experience a secure, private, and optimized internet.</div>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="loginUsername">Username:</label>
+                <input type="text" id="loginUsername" required>
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" required>
+                <button type="submit">Login</button>
+            </form>
+            <h2 id="signupTitle">Don't have an account?</h2>
+            <button id="signUpButton">Sign Up</button>
+        </div>
+    </div>
+
+    <!-- Off-canvas menu -->
+    <div id="mySidenav" class="offcanvas">
+        <div class="offcanvas-content">
+            <span class="close-btn" id="closeBtn">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <label for="signupName">Name:</label>
+                <input type="text" id="signupName" required>
+                <label for="signupEmail">Email:</label>
+                <input type="email" id="signupEmail" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="message" class="hidden"></div>
+
+    <script>
+        // Toggle off-canvas menu
+        function openNav() {
+            document.getElementById("mySidenav").style.left = "0";
+            document.body.style.overflow = "hidden"; // Prevent scrolling
+        }
+
+        // Close off-canvas menu
+        function closeNav() {
+            document.getElementById("mySidenav").style.left = "-250px";
+            document.body.style.overflow = "auto"; // Restore scrolling
+        }
+
+        // Event listeners
+        document.getElementById('signUpButton').addEventListener('click', function() {
+            openNav(); // Open off-canvas menu
+        });
+
+        document.getElementById('closeBtn').addEventListener('click', function() {
+            closeNav(); // Close off-canvas menu
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // For demo purposes, simulate successful login
+            showMessage('Login successful!');
+            // Redirect to hot.html after a short delay (for demonstration)
+            setTimeout(function() {
+                window.location.href = 'hot.html';
+            }, 2000); // 2000 milliseconds = 2 seconds
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // For demo purposes, show signup success message
+            showMessage('Sign Up successful! Now login in.');
+            // Close off-canvas menu after sign up
+            closeNav();
+        });
+
+        function showMessage(message) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = message;
+            messageDiv.classList.remove('hidden');
+            messageDiv.style.display = 'block';
+
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 3000); // Hide message after 3 seconds
+        }
+    </script>
+</body>
+</html>
