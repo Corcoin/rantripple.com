@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threat Intelligence Sharing Platform</title>
+    <style>
+        /* Reset default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+}
+
+header h1 {
+    margin: 0;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.tabs {
+    margin-bottom: 20px;
+}
+
+.tablink {
+    background-color: #f0f0f0;
+    border: none;
+    color: #333;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.tablink.active {
+    background-color: #ddd;
+}
+
+.tabcontent {
+    display: none;
+    padding: 20px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.tabcontent h3 {
+    margin-top: 0;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Threat Intelligence Sharing Platform</h1>
+    </header>
+    <main>
+        <section id="frontend">
+            <h2>Frontend Interface</h2>
+            <div class="tabs">
+                <button class="tablink active" onclick="openTab(event, 'threatFeed')">Threat Data Feeds</button>
+                <button class="tablink" onclick="openTab(event, 'collaboration')">Collaboration</button>
+                <button class="tablink" onclick="openTab(event, 'threatAnalysis')">Threat Analysis</button>
+                <button class="tablink" onclick="openTab(event, 'alertSharing')">Alert Sharing</button>
+            </div>
+            <div id="threatFeed" class="tabcontent">
+                <h3>Threat Data Feeds</h3>
+                <form id="threatFeedForm">
+                    <label for="threatType">Threat Type:</label>
+                    <input type="text" id="threatType" required>
+                    <label for="threatDescription">Description:</label>
+                    <textarea id="threatDescription" rows="4" required></textarea>
+                    <button type="submit" onclick="submitThreatFeed(event)">Submit Threat Feed</button>
+                </form>
+                <div id="threatFeedResult"></div>
+            </div>
+            <div id="collaboration" class="tabcontent">
+                <h3>Collaboration</h3>
+                <form id="collaborationForm">
+                    <label for="collaborationTopic">Topic:</label>
+                    <input type="text" id="collaborationTopic" required>
+                    <label for="collaborationDetails">Details:</label>
+                    <textarea id="collaborationDetails" rows="4" required></textarea>
+                    <button type="submit" onclick="submitCollaboration(event)">Submit Collaboration</button>
+                </form>
+                <div id="collaborationResult"></div>
+            </div>
+            <div id="threatAnalysis" class="tabcontent">
+                <h3>Threat Analysis</h3>
+                <form id="threatAnalysisForm">
+                    <label for="analysisDetails">Analysis Details:</label>
+                    <textarea id="analysisDetails" rows="4" required></textarea>
+                    <button type="submit" onclick="submitThreatAnalysis(event)">Submit Analysis</button>
+                </form>
+                <div id="threatAnalysisResult"></div>
+            </div>
+            <div id="alertSharing" class="tabcontent">
+                <h3>Alert Sharing</h3>
+                <form id="alertSharingForm">
+                    <label for="alertDetails">Alert Details:</label>
+                    <textarea id="alertDetails" rows="4" required></textarea>
+                    <button type="submit" onclick="submitAlertSharing(event)">Share Alert</button>
+                </form>
+                <div id="alertSharingResult"></div>
+            </div>
+        </section>
+
+        <section id="backend">
+            <h2>Backend Setup (Node.js and Express)</h2>
+            <p>To set up the backend, follow these steps:</p>
+            <ol>
+                <li>Create a file named <code>index.js</code> on your local machine.</li>
+                <li>Copy the following Node.js and Express code into <code>index.js</code>:</li>
+            </ol>
+            <pre><code class="javascript">
+// Node.js and Express backend setup
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const ThreatFeed = require('./models/ThreatFeed'); // Replace with your ThreatFeed model path
+const Collaboration = require('./models/Collaboration'); // Replace with your Collaboration model path
+const ThreatAnalysis = require('./models/ThreatAnalysis'); // Replace with your ThreatAnalysis model path
+const Alert = require('./models/Alert'); // Replace with your Alert model path
+
+// Replace with your MongoDB connection string
+const mongoURI = 'mongodb://localhost:27017/threat-intelligence';
+
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.log(err));
+
+app.use(bodyParser.json());
+
+// Threat feed endpoint
+app.post('/threat-feed', async (req, res) => {
+    const { threatType, threatDescription } = req.body;
+
+    try {
+        const newThreatFeed = new ThreatFeed({
+            type: threatType,
+            description: threatDescription
+        });
+
+        await newThreatFeed.save();
+
+        res.status(200).json({ message: 'Threat feed submitted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// Collaboration endpoint
+app.post('/collaboration', async (req, res) => {
+    const { topic, details } = req.body;
+
+    try {
+        const newCollaboration = new Collaboration({
+            topic: topic,
+            details: details
+        });
+
+        await newCollaboration.save();
+
+        res.status(200).json({ message: 'Collaboration submitted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// Threat analysis endpoint
+app.post('/threat-analysis', async (req, res) => {
+    const { details } = req.body;
+
+    try {
+        const newThreatAnalysis = new ThreatAnalysis({
+            details: details
+        });
+
+        await newThreatAnalysis.save();
+
+        res.status(200).json({ message: 'Threat analysis submitted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// Alert sharing endpoint
+app.post('/alert-sharing', async (req, res) => {
+    const { details } = req.body;
+
+    try {
+        const newAlert = new Alert({
+            details: details
+        });
+
+        await newAlert.save();
+
+        res.status(200).json({ message: 'Alert shared successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+</code></pre>
+            <p>Replace <code>/threat-feed</code>, <code>/collaboration</code>, <code>/threat-analysis</code>, and <code>/alert-sharing</code> with your desired endpoints for submitting threat data, collaboration details, threat analysis, and alert sharing respectively.</p>
+            <p>Ensure you have MongoDB installed and running locally, and replace <code>mongoURI</code> with your MongoDB connection string.</p>
+            <p>Run <code>node index.js</code> to start the server.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Threat Intelligence Sharing Platform. All rights reserved.</p>
+    </footer>
+
+    <script >
+        // Function to switch tabs
+function openTab(event, tabName) {
+    const tablinks = document.getElementsByClassName('tablink');
+    const tabcontents = document.getElementsByClassName('tabcontent');
+
+    for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].style.display = 'none';
+    }
+
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove('active');
+    }
+
+    document.getElementById(tabName).style.display = 'block';
+    event.currentTarget.classList.add('active');
+}
+
+// Submit Threat Feed
+async function submitThreatFeed(event) {
+    event.preventDefault();
+
+    const threatType = document.getElementById('threatType').value;
+    const threatDescription = document.getElementById('threatDescription').value;
+
+    try {
+        const response = await fetch('/threat-feed', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ threatType, threatDescription }),
+        });
+
+        const data = await response.json();
+        document.getElementById('threatFeedResult').textContent = data.message;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Submit Collaboration
+async function submitCollaboration(event) {
+    event.preventDefault();
+
+    const topic = document.getElementById('collaborationTopic').value;
+    const details = document.getElementById('collaborationDetails').value;
+
+    try {
+        const response = await fetch('/collaboration', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ topic, details }),
+        });
+
+        const data = await response.json();
+        document.getElementById('collaborationResult').textContent = data.message;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Submit Threat Analysis
+async function submitThreatAnalysis(event) {
+    event.preventDefault();
+
+    const details = document.getElementById('analysisDetails').value;
+
+    try {
+        const response = await fetch('/threat-analysis', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ details }),
+        });
+
+        const data = await response.json();
+        document.getElementById('threatAnalysisResult').textContent = data.message;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Submit Alert Sharing
+async function submitAlertSharing(event) {
+    event.preventDefault();
+
+    const details = document.getElementById('alertDetails').value;
+
+    try {
+        const response = await fetch('/alert-sharing', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ details }),
+        });
+
+        const data = await response.json();
+        document.getElementById('alertSharingResult').textContent = data.message;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Initialize page with default tab
+document.getElementsByClassName('tablink')[0].click();
+
+    </script>
+</body>
+</html>
