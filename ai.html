@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Security App</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+nav button {
+    background-color: #444;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin: 0 5px;
+    padding: 10px 20px;
+}
+
+nav button.active {
+    background-color: #666;
+}
+
+.tabcontent {
+    display: none;
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label, form input, form textarea, form button {
+    margin-bottom: 10px;
+}
+
+form button {
+    align-self: flex-start;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+form button:hover {
+    background-color: #555;
+}
+
+pre {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mobile Security App</h1>
+        <nav>
+            <button class="tablink" onclick="openTab(event, 'alertsTab')">Real-time Alerts</button>
+            <button class="tablink" onclick="openTab(event, 'incidentTab')">Incident Management</button>
+            <button class="tablink" onclick="openTab(event, 'monitoringTab')">Network Monitoring</button>
+            <button class="tablink" onclick="openTab(event, 'reportingTab')">Reporting</button>
+            <button class="tablink" onclick="openTab(event, 'backendSetupTab')">Backend Setup</button>
+        </nav>
+    </header>
+    <main>
+        <section id="alertsTab" class="tabcontent">
+            <h2>Real-time Alerts</h2>
+            <form id="alertForm">
+                <label for="alertType">Alert Type:</label>
+                <input type="text" id="alertType" name="alertType">
+                <label for="alertDescription">Description:</label>
+                <textarea id="alertDescription" name="alertDescription"></textarea>
+                <button type="submit">Submit Alert</button>
+            </form>
+            <p id="alertResult"></p>
+        </section>
+        <section id="incidentTab" class="tabcontent">
+            <h2>Incident Management</h2>
+            <form id="incidentForm">
+                <label for="incidentTitle">Title:</label>
+                <input type="text" id="incidentTitle" name="incidentTitle">
+                <label for="incidentDetails">Details:</label>
+                <textarea id="incidentDetails" name="incidentDetails"></textarea>
+                <button type="submit">Submit Incident</button>
+            </form>
+            <p id="incidentResult"></p>
+        </section>
+        <section id="monitoringTab" class="tabcontent">
+            <h2>Network Monitoring</h2>
+            <p>Network monitoring functionality will be implemented here.</p>
+        </section>
+        <section id="reportingTab" class="tabcontent">
+            <h2>Reporting</h2>
+            <p>Reporting functionality will be implemented here.</p>
+        </section>
+        <section id="backendSetupTab" class="tabcontent">
+            <h2>Backend Setup Instructions</h2>
+            <p>To set up the backend for the Mobile Security App, follow these steps:</p>
+            <ol>
+                <li>Ensure you have <strong>Node.js</strong> and <strong>MongoDB</strong> installed on your machine.</li>
+                <li>Create a file named <code>index.js</code> and paste the following code:</li>
+                <pre>
+<code>const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const cors = require('cors');
+
+const app = express();
+const port = 3000;
+
+app.use(cors());
+app.use(bodyParser.json());
+
+mongoose.connect('mongodb://localhost:27017/mobileSecurityApp', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const alertSchema = new mongoose.Schema({
+    type: String,
+    description: String,
+    date: { type: Date, default: Date.now },
+});
+
+const incidentSchema = new mongoose.Schema({
+    title: String,
+    details: String,
+    status: String,
+    date: { type: Date, default: Date.now },
+});
+
+const Alert = mongoose.model('Alert', alertSchema);
+const Incident = mongoose.model('Incident', incidentSchema);
+
+app.post('/alerts', async (req, res) => {
+    const alert = new Alert(req.body);
+    await alert.save();
+    res.send({ message: 'Alert saved!' });
+});
+
+app.post('/incidents', async (req, res) => {
+    const incident = new Incident(req.body);
+    await incident.save();
+    res.send({ message: 'Incident saved!' });
+});
+
+app.get('/alerts', async (req, res) => {
+    const alerts = await Alert.find();
+    res.send(alerts);
+});
+
+app.get('/incidents', async (req, res) => {
+    const incidents = await Incident.find();
+    res.send(incidents);
+});
+
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+});
+</code>
+                </pre>
+                <li>Run <code>npm install express body-parser mongoose cors</code> to install the required dependencies.</li>
+                <li>Start the backend server by running <code>node index.js</code>.</li>
+                <li>The server will be running at <code>http://localhost:3000</code>.</li>
+            </ol>
+        </section>
+    </main>
+    <script >
+        // Function to switch tabs
+function openTab(event, tabName) {
+    const tablinks = document.getElementsByClassName('tablink');
+    const tabcontents = document.getElementsByClassName('tabcontent');
+
+    for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].style.display = 'none';
+    }
+
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove('active');
+    }
+
+    document.getElementById(tabName).style.display = 'block';
+    event.currentTarget.classList.add('active');
+}
+
+// Submit Alert Form
+async function submitAlert(event) {
+    event.preventDefault();
+
+    const alertType = document.getElementById('alertType').value;
+    const alertDescription = document.getElementById('alertDescription').value;
+
+    try {
+        const response = await fetch('http://localhost:3000/alerts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ alertType, alertDescription }),
+        });
+
+        const data = await response.json();
+        document.getElementById('alertResult').textContent = data.message;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Submit Incident Form
+async function submitIncident(event) {
+    event.preventDefault();
+
+    const incidentTitle = document.getElementById('incidentTitle').value;
+    const incidentDetails = document.getElementById('incidentDetails').value;
+
+    try {
+        const response = await fetch('http://localhost:3000/incidents', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ incidentTitle, incidentDetails }),
+        });
+
+        const data = await response.json();
+        document.getElementById('incidentResult').textContent = data.message;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Initialize page with default tab
+document.getElementsByClassName('tablink')[0].click();
+
+// Add event listeners for form submissions
+document.getElementById('alertForm').addEventListener('submit', submitAlert);
+document.getElementById('incidentForm').addEventListener('submit', submitIncident);
+
+    </script>
+</body>
+</html>
