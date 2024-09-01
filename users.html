@@ -108,6 +108,39 @@
             <button onclick="printUsers()">Refresh</button>
             <ul id="user-list"></ul>
         </div>
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('addUserForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent default form submission
+
+      const username = document.getElementById('username').value;
+
+      fetch('/addUser', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username })
+      })
+      .then(response => response.json())
+      .then(data => {
+          const popup = document.getElementById('popup');
+          const popupMessage = document.getElementById('popupMessage');
+          
+          if (data.success) {
+              popupMessage.textContent = data.message;
+              popup.classList.add('show');
+          } else {
+              popupMessage.textContent = data.message;
+              popup.classList.add('show');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+    });
+  });
+</script>
         
     
     
