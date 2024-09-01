@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        body {
+            background-image: url('81gJ1+YQarL._AC_SL1500_.jpg');
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #041cfc;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #f1f1f1;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .balance {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        .sidebar {
+    width: 40%; /* Make sidebar full width in smaller screens */
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+/* Sidebar heading */
+.sidebar h2 {
+    border-bottom: 3px solid #e4e6eb;
+    padding-bottom: 12px;
+    color: #1877f2;
+    font-size: 1.6em;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+       
+
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <a href="index.html">
+            <button>Home</button>
+        </a>
+        <a href="wallet.html">
+            <button>Wallet</button>
+        </a>
+        <a href="currencyData.html">
+            <button>Currency Data</button>
+        </a>
+        <a href="transactionlog.html">
+            <button>Transaction Log</button>
+        </a>
+    </div>
+    <br>
+    
+        
+        
+          <div class="sidebar">
+            <h1>Users</h1>
+            <button onclick="printUsers()">Refresh</button>
+            <ul id="user-list"></ul>
+        </div>
+        
+    
+    
+
+
+<script>
+     document.getElementById('addUserForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission
+
+        const username = document.getElementById('username').value;
+
+        fetch('/addUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const popup = document.getElementById('popup');
+            const popupMessage = document.getElementById('popupMessage');
+            
+            if (data.success) {
+                popupMessage.textContent = data.message;
+                popup.classList.add('show');
+            } else {
+                popupMessage.textContent = data.message;
+                popup.classList.add('show');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+
+    function closePopup() {
+        document.getElementById('popup').classList.remove('show');
+    }
+
+async function addUser() {
+const username = document.getElementById('new-username').value.trim();
+if (username === '') {
+    alert('Please enter a username.');
+    return;
+}
+
+const response = await fetch('/addUser', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username })
+});
+
+const result = await response.json();
+if (result.success) {
+    printUsers();
+} else {
+    alert(result.message);
+}
+}
+
+async function deposit() {
+const username = document.getElementById('deposit-username').value.trim();
+const amount = parseFloat(document.getElementById('deposit-amount').value.trim());
+
+if (username === '' || isNaN(amount) || amount <= 0) {
+    alert('Please enter valid username and amount.');
+    return;
+}
+
+const response = await fetch('/deposit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, amount })
+});
+
+const result = await response.json();
+if (result.success) {
+    printUsers();
+} else {
+    alert(result.message);
+}
+}
+
+async function transfer() {
+const fromUser = document.getElementById('transfer-from').value.trim();
+const toUser = document.getElementById('transfer-to').value.trim();
+const amount = parseFloat(document.getElementById('transfer-amount').value.trim());
+
+if (fromUser === '' || toUser === '' || isNaN(amount) || amount <= 0) {
+    alert('Please enter valid usernames and amount.');
+    return;
+}
+
+const response = await fetch('/transfer', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fromUser, toUser, amount })
+});
+
+const result = await response.json();
+if (result.success) {
+    printUsers();
+} else {
+    alert(result.message);
+}
+}
+
+async function viewWallet() {
+const username = document.getElementById('wallet-username').value.trim();
+if (username === '') {
+    alert('Please enter a username.');
+    return;
+}
+
+const response = await fetch(`/wallet/${username}`);
+const result = await response.json();
+if (result.success) {
+    document.getElementById('wallet-balance').textContent = `Balance: $${result.balance.toFixed(2)}`;
+} else {
+    alert(result.message);
+}
+}
+
+async function addToWallet() {
+const username = document.getElementById('add-wallet-username').value.trim();
+const amount = parseFloat(document.getElementById('add-wallet-amount').value.trim());
+
+if (username === '' || isNaN(amount) || amount <= 0 || amount > 100) {
+    alert('Please enter a valid amount (up to $100).');
+    return;
+}
+
+const response = await fetch('/addToWallet', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, amount })
+});
+
+const result = await response.json();
+if (result.success) {
+    viewWallet();
+} else {
+    alert(result.message);
+}
+}
+
+async function printUsers() {
+const response = await fetch('/users');
+const users = await response.json();
+
+const userList = document.getElementById('user-list');
+userList.innerHTML = '';
+users.forEach(user => {
+    const li = document.createElement('li');
+    li.textContent = `${user.username}: $${user.balance.toFixed(2)}`;
+    userList.appendChild(li);
+});
+}
+
+async function refreshCurrencyData() {
+const response = await fetch('/currencyData');
+const data = await response.text();
+document.getElementById('currency-data').textContent = data;
+}
+
+async function refreshTransactions() {
+const response = await fetch('/transactions');
+const data = await response.text();
+document.getElementById('transaction-log').textContent = data;
+}
+
+// Initial call to populate user list
+printUsers();
+
+
+</script>
+</body>
+</html>

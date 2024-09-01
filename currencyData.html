@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Data</title>
+    <style>
+        /* Reuse the styling from your main page for consistency */
+        body, h1, p {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        body {
+            background-image: url('81gJ1+YQarL._AC_SL1500_.jpg');
+            background-color: #f5f6f7;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 865px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #1877f2;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+            font-weight: 600;
+        }
+        button:hover {
+            background-color: #165eab;
+        }
+        pre {
+            width: 90%;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+            background: #eee;
+            padding: 10px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <a href="index.html">
+            <button>Home</button>
+        </a>
+        <a href="wallet.html">
+            <button>Wallet</button>
+        </a>
+        <a href="transactionLog.html">
+            <button>Transaction Log</button>
+        </a>
+        <a href="users.html">
+            <button>Users</button>
+        </a>
+    </div>
+    <br>
+    <div class="container">
+        <h1>Currency Data</h1>
+        <button onclick="refreshCurrencyData()">Refresh Currency Data</button>
+        <pre id="currency-data"></pre>
+    </div>
+    <script>
+        async function refreshCurrencyData() {
+            const response = await fetch('/currencyData');
+            const data = await response.text();
+            document.getElementById('currency-data').textContent = data;
+        }
+
+        // Initial call to populate currency data
+        refreshCurrencyData();
+    </script>
+</body>
+</html>
