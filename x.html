@@ -235,13 +235,15 @@ input[type="text"]:focus, input[type="number"]:focus {
       
     </div>
 
-    <script>
-         document.getElementById('addUserForm').addEventListener('submit', function(e) {
+   <script>
+        const BASE_URL = 'https://1166-2600-1700-b3a0-f20-ac21-d852-c6e8-9b0a.ngrok-free.app';
+
+        document.getElementById('addUserForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
 
             const username = document.getElementById('username').value;
 
-            fetch('/addUser', {
+            fetch(`${BASE_URL}/addUser`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -253,16 +255,13 @@ input[type="text"]:focus, input[type="number"]:focus {
                 const popup = document.getElementById('popup');
                 const popupMessage = document.getElementById('popupMessage');
                 
-                if (data.success) {
-                    popupMessage.textContent = data.message;
-                    popup.classList.add('show');
-                } else {
-                    popupMessage.textContent = data.message;
-                    popup.classList.add('show');
-                }
+                popupMessage.textContent = data.message;
+                popup.classList.add('show');
             })
             .catch(error => {
                 console.error('Error:', error);
+                document.getElementById('popupMessage').textContent = 'An error occurred.';
+                document.getElementById('popup').classList.add('show');
             });
         });
 
@@ -270,142 +269,142 @@ input[type="text"]:focus, input[type="number"]:focus {
             document.getElementById('popup').classList.remove('show');
         }
 
-async function addUser() {
-    const username = document.getElementById('new-username').value.trim();
-    if (username === '') {
-        alert('Please enter a username.');
-        return;
-    }
+        async function addUser() {
+            const username = document.getElementById('new-username').value.trim();
+            if (username === '') {
+                alert('Please enter a username.');
+                return;
+            }
 
-    const response = await fetch('/addUser', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username })
-    });
+            const response = await fetch(`${BASE_URL}/addUser`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username })
+            });
 
-    const result = await response.json();
-    if (result.success) {
+            const result = await response.json();
+            if (result.success) {
+                printUsers();
+            } else {
+                alert(result.message);
+            }
+        }
+
+        async function deposit() {
+            const username = document.getElementById('deposit-username').value.trim();
+            const amount = parseFloat(document.getElementById('deposit-amount').value.trim());
+
+            if (username === '' || isNaN(amount) || amount <= 0) {
+                alert('Please enter valid username and amount.');
+                return;
+            }
+
+            const response = await fetch(`${BASE_URL}/deposit`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, amount })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                printUsers();
+            } else {
+                alert(result.message);
+            }
+        }
+
+        async function transfer() {
+            const fromUser = document.getElementById('transfer-from').value.trim();
+            const toUser = document.getElementById('transfer-to').value.trim();
+            const amount = parseFloat(document.getElementById('transfer-amount').value.trim());
+
+            if (fromUser === '' || toUser === '' || isNaN(amount) || amount <= 0) {
+                alert('Please enter valid usernames and amount.');
+                return;
+            }
+
+            const response = await fetch(`${BASE_URL}/transfer`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ fromUser, toUser, amount })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                printUsers();
+            } else {
+                alert(result.message);
+            }
+        }
+
+        async function viewWallet() {
+            const username = document.getElementById('wallet-username').value.trim();
+            if (username === '') {
+                alert('Please enter a username.');
+                return;
+            }
+
+            const response = await fetch(`${BASE_URL}/wallet/${username}`);
+            const result = await response.json();
+            if (result.success) {
+                document.getElementById('wallet-balance').textContent = `Balance: $${result.balance.toFixed(2)}`;
+            } else {
+                alert(result.message);
+            }
+        }
+
+        async function addToWallet() {
+            const username = document.getElementById('add-wallet-username').value.trim();
+            const amount = parseFloat(document.getElementById('add-wallet-amount').value.trim());
+
+            if (username === '' || isNaN(amount) || amount <= 0 || amount > 100) {
+                alert('Please enter a valid amount (up to $100).');
+                return;
+            }
+
+            const response = await fetch(`${BASE_URL}/addToWallet`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, amount })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                viewWallet();
+            } else {
+                alert(result.message);
+            }
+        }
+
+        async function printUsers() {
+            const response = await fetch(`${BASE_URL}/users`);
+            const users = await response.json();
+
+            const userList = document.getElementById('user-list');
+            userList.innerHTML = '';
+            users.forEach(user => {
+                const li = document.createElement('li');
+                li.textContent = `${user.username}: $${user.balance.toFixed(2)}`;
+                userList.appendChild(li);
+            });
+        }
+
+        async function refreshCurrencyData() {
+            const response = await fetch(`${BASE_URL}/currencyData`);
+            const data = await response.text();
+            document.getElementById('currency-data').textContent = data;
+        }
+
+        async function refreshTransactions() {
+            const response = await fetch(`${BASE_URL}/transactions`);
+            const data = await response.text();
+            document.getElementById('transaction-log').textContent = data;
+        }
+
+        // Initial call to populate user list
         printUsers();
-    } else {
-        alert(result.message);
-    }
-}
-
-async function deposit() {
-    const username = document.getElementById('deposit-username').value.trim();
-    const amount = parseFloat(document.getElementById('deposit-amount').value.trim());
-
-    if (username === '' || isNaN(amount) || amount <= 0) {
-        alert('Please enter valid username and amount.');
-        return;
-    }
-
-    const response = await fetch('/deposit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, amount })
-    });
-
-    const result = await response.json();
-    if (result.success) {
-        printUsers();
-    } else {
-        alert(result.message);
-    }
-}
-
-async function transfer() {
-    const fromUser = document.getElementById('transfer-from').value.trim();
-    const toUser = document.getElementById('transfer-to').value.trim();
-    const amount = parseFloat(document.getElementById('transfer-amount').value.trim());
-
-    if (fromUser === '' || toUser === '' || isNaN(amount) || amount <= 0) {
-        alert('Please enter valid usernames and amount.');
-        return;
-    }
-
-    const response = await fetch('/transfer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fromUser, toUser, amount })
-    });
-
-    const result = await response.json();
-    if (result.success) {
-        printUsers();
-    } else {
-        alert(result.message);
-    }
-}
-
-async function viewWallet() {
-    const username = document.getElementById('wallet-username').value.trim();
-    if (username === '') {
-        alert('Please enter a username.');
-        return;
-    }
-
-    const response = await fetch(`/wallet/${username}`);
-    const result = await response.json();
-    if (result.success) {
-        document.getElementById('wallet-balance').textContent = `Balance: $${result.balance.toFixed(2)}`;
-    } else {
-        alert(result.message);
-    }
-}
-
-async function addToWallet() {
-    const username = document.getElementById('add-wallet-username').value.trim();
-    const amount = parseFloat(document.getElementById('add-wallet-amount').value.trim());
-
-    if (username === '' || isNaN(amount) || amount <= 0 || amount > 100) {
-        alert('Please enter a valid amount (up to $100).');
-        return;
-    }
-
-    const response = await fetch('/addToWallet', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, amount })
-    });
-
-    const result = await response.json();
-    if (result.success) {
-        viewWallet();
-    } else {
-        alert(result.message);
-    }
-}
-
-async function printUsers() {
-    const response = await fetch('/users');
-    const users = await response.json();
-
-    const userList = document.getElementById('user-list');
-    userList.innerHTML = '';
-    users.forEach(user => {
-        const li = document.createElement('li');
-        li.textContent = `${user.username}: $${user.balance.toFixed(2)}`;
-        userList.appendChild(li);
-    });
-}
-
-async function refreshCurrencyData() {
-    const response = await fetch('/currencyData');
-    const data = await response.text();
-    document.getElementById('currency-data').textContent = data;
-}
-
-async function refreshTransactions() {
-    const response = await fetch('/transactions');
-    const data = await response.text();
-    document.getElementById('transaction-log').textContent = data;
-}
-
-// Initial call to populate user list
-printUsers();
-
-
+        refreshCurrencyData();
+        refreshTransactions();
     </script>
 </body>
 </html>
