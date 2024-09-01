@@ -266,6 +266,20 @@ nav ul li a:hover {
         <p>Rantripple is more than just a currency. It's a breakthrough in financial technology, combining the reliability of aluminum with the flexibility of digital transactions.</p>
         <button onclick="document.getElementById('popup').style.display='none'">Close</button>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Define the ngrok URL
+            const ngrokUrl = "https://4fe6-2600-1700-b3a0-f20-ac21-d852-c6e8-9b0a.ngrok-free.app";
+
+            // Update the popup link
+            document.getElementById('ngrok-link').href = ngrokUrl;
+            document.getElementById('ngrok-link').textContent = ngrokUrl;
+
+            // Update the info section link
+            document.getElementById('ngrok-info').href = ngrokUrl;
+            document.getElementById('ngrok-info').textContent = ngrokUrl;
+        });
+    </script>
     <footer>
         <p>&copy; 2024 Rantripple. All rights reserved.</p>
         <p><a href="/privacy-policy">Privacy Policy</a> | <a href="/terms-of-service">Terms of Service</a></p>
