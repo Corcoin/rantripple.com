@@ -236,35 +236,36 @@
 
 
       <script>
-    // Your current form handling logic
-    document.querySelectorAll('form').forEach((form) => {
-      form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const url = this.querySelector('input[name="url"]').value;
-        const resultId = this.id.replace('proxyForm', 'result');
-        document.getElementById(resultId).innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
-
-        // Call the backend (Ngrok-exposed) API
-        callBackend(url, resultId);
-      });
+    // Event listener for the form
+    document.querySelector('form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const url = this.querySelector('input[name="url"]').value;
+      const resultId = this.id.replace('proxyForm', 'result');
+      
+      // Add the URL to the result div
+      document.getElementById(resultId).innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+      
+      // Call backend function
+      callBackend(url, resultId);
     });
 
-    // Function to call backend via Ngrok
+    // Function to call the backend via Ngrok
     async function callBackend(url, resultId) {
-      const ngrokUrl = ' https://b02c-2600-1700-b3a0-f20-ac21-d852-c6e8-9b0a.ngrok-free.app; // Replace with your Ngrok URL
+      const ngrokUrl = ' https://b02c-2600-1700-b3a0-f20-ac21-d852-c6e8-9b0a.ngrok-free.app;  // Replace with your actual Ngrok URL
       
       try {
-        // Optionally send the URL from the form to the backend via POST request
+        // Sending the URL to the backend
         const response = await fetch(ngrokUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ url: url }),  // Send URL to backend
+          body: JSON.stringify({ url: url }),  // Pass the URL to the backend
         });
-        const data = await response.json();
         
-        // Display result from backend in the result div
+        const data = await response.json();  // Parse JSON response
+        
+        // Display response from backend
         const resultDiv = document.getElementById(resultId);
         resultDiv.innerHTML += `<p>Backend Response: ${JSON.stringify(data)}</p>`;
       } catch (error) {
