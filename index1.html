@@ -501,43 +501,14 @@
 
 
 <script>
-    // Event listener for the form
-    document.querySelector('form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const url = this.querySelector('input[name="url"]').value;
-      const resultId = this.id.replace('proxyForm', 'result');
-      
-      // Add the URL to the result div
-      document.getElementById(resultId).innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
-      
-      // Call backend function
-      callBackend(url, resultId);
-    });
-
-    // Function to call the backend via Ngrok
-    async function callBackend(url, resultId) {
-      const ngrokUrl = 'https://b02c-2600-1700-b3a0-f20-ac21-d852-c6e8-9b0a.ngrok-free.app';  // Your Ngrok URL
-      
-      try {
-        // Sending the URL to the backend
-        const response = await fetch(`${ngrokUrl}/api/data`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ url: url }),  // Pass the URL to the backend
+        document.querySelectorAll('form').forEach((form) => {
+          form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const url = this.querySelector('input[name="url"]').value;
+            const resultId = this.id.replace('proxyForm', 'result');
+            document.getElementById(resultId).innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+          });
         });
-        
-        const data = await response.json();  // Parse JSON response
-        
-        // Display response from backend
-        const resultDiv = document.getElementById(resultId);
-        resultDiv.innerHTML += `<p>Backend Response: ${JSON.stringify(data)}</p>`;
-      } catch (error) {
-        console.error('Error fetching data from backend:', error);
-        document.getElementById(resultId).innerHTML += `<p>Error: ${error.message}</p>`;
-      }
-    }
-  </script>
+      </script>
 </body>
 </html>
