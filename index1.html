@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proxy Service Dashboard</title>
+  <style>
+   body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #fff;
+  height: 100vh;
+  overflow-x: hidden;
+  padding-top: 60px; /* Space for the fixed navbar */
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #555;
+  overflow: auto;
+  z-index: 1000; /* Ensure the navbar is on top */
+  padding: 0 20px; /* Add some padding to the navbar */
+  text-align: center;
+}
+
+.navbar a {
+  float: left;
+  padding: 12px;
+  color: white;
+  text-decoration: center;
+  font-size: 17px;
+  text-align: center;
+}
+
+.navbar a:hover {
+  background-color: #000;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+@media screen and (max-width: 500px) {
+  .navbar a {
+    float: none;
+    display: block;
+  }
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  margin-top: 20px; /* Additional margin if needed */
+  box-sizing: border-box;
+}
+
+.info-container {
+  flex: 2 1 60%; /* Takes up 60% of the container width */
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  margin-right: 20px; /* Space between info container and form containers */
+}
+
+.info-container h2 {
+  font-size: 20px;
+  color: #d0d0d0;
+  margin-bottom: 10px;
+}
+
+.info-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.form-container {
+  flex: 1 1 calc(20% - 20px); /* Adjusted to fit 5 boxes per row */
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  margin: 10px;
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+}
+
+.form-container h1 {
+  margin-bottom: 20px;
+  font-size: 18px; /* Smaller font size for titles */
+  text-align: center;
+  color: #e0e0e0;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #d0d0d0;
+}
+
+.form-container input, .form-container button {
+  width: 95%; /* Full width to fit nicely within the container */
+  margin-bottom: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.form-container input {
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.form-container input::placeholder {
+  color: #888;
+}
+
+.form-container button {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
+
+#result {
+  margin-top: 20px;
+  color: #ff6b6b;
+  font-weight: bold;
+  text-align: center;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 20px 0;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #45a049; /* Darker green */
+}
+
+    
+  </style>
+</head>
+
+
+
+<body>
+  <div class="navbar">
+    <h1>Rant Ripple Proxy Service Dashboard</h1>
+    
+    
+  </div>
+  <br>
+ 
+  <br>
+  <br>
+  <div class="grid-container">
+    
+    <div class="cube-box">10</div>
+    <div class="form-container">
+      <button class="button" onclick="window.location.href='index.html';">Home</button>
+      
+      
+      <h1>Proxy Server 10</h1>
+      <form id="proxyForm1">
+          
+        <label for="url1">Target URL:</label>
+        <input type="text" id="url1" name="url" placeholder="http://example.com" required>
+        <button type="submit">Open URL in New Tab</button>
+      </form>
+      <div id="result1"></div>
+    </div>
+
+    <div class="cube-box">11</div>
+    <div class="form-container">
+      <h1>Proxy Server 11</h1>
+      <form id="proxyForm2">
+        <label for="url2">Target URL:</label>
+        <input type="text" id="url2" name="url" placeholder="http://example.com" required>
+        <button type="submit">Open URL in New Tab</button>
+      </form>
+      <div id="result2"></div>
+    </div>
+
+    <div class="cube-box">12</div>
+    <div class="form-container">
+      <h1>Proxy Server 12</h1>
+      <form id="proxyForm3">
+        <label for="url3">Target URL:</label>
+        <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+        <button type="submit">Open URL in New Tab</button>
+      </form>
+      <div id="result3"></div>
+    </div>
+
+    <div class="cube-box">13</div>
+    <div class="form-container">
+      <h1>Proxy Server 13</h1>
+      <form id="proxyForm4">
+        <label for="url4">Target URL:</label>
+        <input type="text" id="url4" name="url" placeholder="http://example.com" required>
+        <button type="submit">Open URL in New Tab</button>
+      </form>
+      <div id="result4"></div>
+    </div>
+
+    <div class="cube-box">14</div>
+    <div class="form-container">
+      <h1>Proxy Server 14</h1>
+      <form id="proxyForm5">
+        <label for="url5">Target URL:</label>
+        <input type="text" id="url5" name="url" placeholder="http://example.com" required>
+        <button type="submit">Open URL in New Tab</button>
+      </form>
+      <div id="result5"></div>
+    </div>
+
+    <div class="cube-box">15</div>
+    <div class="form-container">
+      <h1>Proxy Server 15</h1>
+      <form id="proxyForm6">
+        <label for="url6">Target URL:</label>
+        <input type="text" id="url6" name="url" placeholder="http://example.com" required>
+        <button type="submit">Open URL in New Tab</button>
+      </form>
+      <div id="result6"></div>
+    </div>
+
+    <div class="cube-box">16</div>
+    <div class="form-container">
+      <h1>Proxy Server 16</h1>
+      <form id="proxyForm7">
+        <label for="url3">Target URL:</label>
+        <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+        <button type="submit">Open URL in New Tab</button>
+      </form>
+      <div id="result7"></div>
+    </div>
+
+    <div class="cube-box">17</div>
+    <div class="form-container">
+      <h1>Proxy Server 17</h1>
+      <form id="proxyForm8">
+        <label for="url3">Target URL:</label>
+        <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+        <button type="submit">Open URL in New Tab</button>
+      </form>
+      <div id="result8"></div>
+    </div>
+
+    <div class="cube-box">18</div>
+    <div class="form-container">
+      <h1>Proxy Server 18</h1>
+      <form id="proxyForm9">
+        <label for="url3">Target URL:</label>
+        <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+        <button type="submit">Open URL in New Tab</button>
+      </form>
+      <div id="result9"></div>
+    </div>
+  </div>
+</div>
+<div class="grid-container">
+  <div class="cube-box">19
+  </div>
+  <div class="form-container">
+    
+    
+    <h1>Proxy Server 19
+    </h1>
+    <form id="proxyForm1">
+        
+      <label for="url1">Target URL:</label>
+      <input type="text" id="url1" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result1"></div>
+  </div>
+
+  <div class="cube-box">20</div>
+  <div class="form-container">
+    <h1>Proxy Server 20</h1>
+    <form id="proxyForm10">
+      <label for="url2">Target URL:</label>
+      <input type="text" id="url2" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result10"></div>
+  </div>
+
+  <div class="cube-box">21</div>
+  <div class="form-container">
+    <h1>Proxy Server 21</h1>
+    <form id="proxyForm11">
+      <label for="url3">Target URL:</label>
+      <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result11"></div>
+  </div>
+
+  <div class="cube-box">22</div>
+  <div class="form-container">
+    <h1>Proxy Server 22</h1>
+    <form id="proxyForm12">
+      <label for="url4">Target URL:</label>
+      <input type="text" id="url4" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result12"></div>
+  </div>
+
+  <div class="cube-box">23</div>
+  <div class="form-container">
+    <h1>Proxy Server 23</h1>
+    <form id="proxyForm13">
+      <label for="url5">Target URL:</label>
+      <input type="text" id="url5" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result13"></div>
+  </div>
+
+  <div class="cube-box">24</div>
+  <div class="form-container">
+    <h1>Proxy Server 24</h1>
+    <form id="proxyForm14">
+      <label for="url3">Target URL:</label>
+      <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result14"></div>
+  </div>
+
+  <div class="cube-box">25</div>
+  <div class="form-container">
+    <h1>Proxy Server 25</h1>
+    <form id="proxyForm15">
+      <label for="url3">Target URL:</label>
+      <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result16"></div>
+  </div>
+
+  <div class="cube-box">26</div>
+  <div class="form-container">
+    <h1>Proxy Server 26</h1>
+    <form id="proxyForm17">
+      <label for="url3">Target URL:</label>
+      <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result17"></div>
+  </div>
+
+  <div class="cube-box">27</div>
+  <div class="form-container">
+    <h1>Proxy Server 27</h1>
+    <form id="proxyForm18">
+      <label for="url3">Target URL:</label>
+      <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result18"></div>
+  </div>
+</div>
+</div>
+<div class="grid-container">
+  <div class="cube-box">28</div>
+  <div class="form-container">
+    
+    
+    <h1>Proxy Server 28</h1>
+    <form id="proxyForm19">
+        
+      <label for="url1">Target URL:</label>
+      <input type="text" id="url1" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result19"></div>
+  </div>
+
+  <div class="cube-box">29</div>
+  <div class="form-container">
+    <h1>Proxy Server 29</h1>
+    <form id="proxyForm20">
+      <label for="url2">Target URL:</label>
+      <input type="text" id="url2" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result20"></div>
+  </div>
+
+  <div class="cube-box">30</div>
+  <div class="form-container">
+    <h1>Proxy Server 30</h1>
+    <form id="proxyForm21">
+      <label for="url3">Target URL:</label>
+      <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result21"></div>
+  </div>
+
+  <div class="cube-box">31</div>
+  <div class="form-container">
+    <h1>Proxy Server 31</h1>
+    <form id="proxyForm22">
+      <label for="url4">Target URL:</label>
+      <input type="text" id="url4" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result22"></div>
+  </div>
+
+  <div class="cube-box">32</div>
+  <div class="form-container">
+    <h1>Proxy Server 32</h1>
+    <form id="proxyForm23">
+      <label for="url5">Target URL:</label>
+      <input type="text" id="url5" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result23"></div>
+  </div>
+
+  <div class="cube-box">33</div>
+  <div class="form-container">
+    <h1>Proxy Server 33</h1>
+    <form id="proxyForm24">
+      <label for="url3">Target URL:</label>
+      <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result24"></div>
+  </div>
+
+  <div class="cube-box">34</div>
+  <div class="form-container">
+    <h1>Proxy Server 34</h1>
+    <form id="proxyForm25">
+      <label for="url3">Target URL:</label>
+      <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result25"></div>
+  </div>
+
+  <div class="cube-box">35</div>
+  <div class="form-container">
+    <h1>Proxy Server 35</h1>
+    <form id="proxyForm26">
+      <label for="url3">Target URL:</label>
+      <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result26"></div>
+  </div>
+
+  <div class="cube-box">36</div>
+  <div class="form-container">
+    <h1>Proxy Server 36</h1>
+    <form id="proxyForm27">
+      <label for="url3">Target URL:</label>
+      <input type="text" id="url3" name="url" placeholder="http://example.com" required>
+      <button type="submit">Open URL in New Tab</button>
+    </form>
+    <div id="result27"></div>
+  </div>
+</div>
+</div>
+
+
+
+<script>
+  document.querySelectorAll('form').forEach((form) => {
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const url = this.querySelector('input[name="url"]').value;
+      const resultId = this.id.replace('proxyForm', 'result');
+      document.getElementById(resultId).innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+    });
+  });
+</script>
+</body>
+</html>

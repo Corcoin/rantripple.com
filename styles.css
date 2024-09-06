@@ -1,423 +1,157 @@
-/* Base */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #fff;
+  height: 100vh;
+  overflow-x: hidden;
+  padding-top: 60px; /* Space for the fixed navbar */
+}
 
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #555;
+  overflow: auto;
+  z-index: 1000; /* Ensure the navbar is on top */
+  padding: 0 20px; /* Add some padding to the navbar */
+}
 
-/* Container */
+.navbar a {
+  float: left;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background-color: #000;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+@media screen and (max-width: 500px) {
+  .navbar a {
+    float: none;
+    display: block;
+  }
+}
+
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  margin-top: 20px; /* Additional margin if needed */
+  box-sizing: border-box;
 }
 
-/* Typography */
-h1 {
-    color: #f7f9fa;
-    font-size: 38px; /* Makes the font size larger */
-    text-align: center; /* Centers the text */
-    margin-top: 20px;
-}
-h2, h3 {
-    text-align: center;
-    color: #eff0f5;
-}
-h5{
-    font-size: medium;
+.info-container {
+  flex: 2 1 60%; /* Takes up 60% of the container width */
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  margin-right: 20px; /* Space between info container and form containers */
 }
 
-p {
-    line-height: 1.6;
+.info-container h2 {
+  font-size: 20px;
+  color: #d0d0d0;
+  margin-bottom: 10px;
 }
 
-/* Link Box */
-.link-box {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 40px;
-    gap: 20px; 
+.info-container ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-.link {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 10px 15px;
-    margin: 10px;
-    text-align: center;
-    width: 120px;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-    color: #333;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.form-container {
+  flex: 1 1 calc(20% - 20px); /* Adjusted to fit 5 boxes per row */
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  margin: 10px;
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
 }
 
-.link:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+.form-container h1 {
+  margin-bottom: 20px;
+  font-size: 18px; /* Smaller font size for titles */
+  text-align: center;
+  color: #e0e0e0;
 }
 
-.fa-brain, .fa-search {
-    margin-right: 8px;
+.form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #d0d0d0;
 }
 
-/* How It Works */
-#how-it-works {
-    background: linear-gradient(135deg, #f50101 0%, #4694fa 100%);
-    color: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    margin-top: 20px;
+.form-container input, .form-container button {
+  width: 95%; /* Full width to fit nicely within the container */
+  margin-bottom: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
 }
 
-.steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+.form-container input {
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
 }
 
-.step {
-    background: rgba(255,255,255,0.2);
-    border-radius: 10px;
-    padding: 15px;
-    transition: background-color 0.3s ease;
+.form-container input::placeholder {
+  color: #888;
 }
 
-.step:hover {
-    background: rgba(255,255,255,0.4);
+.form-container button {
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Features and Benefits */
-#features-benefits ul {
-    list-style: none;
-    padding: 0;
+.form-container button:hover {
+  background-color: #0056b3;
 }
 
-#features-benefits li {
-    background-color: #fff;
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: box-shadow 0.3s ease;
+#result {
+  margin-top: 20px;
+  color: #ff6b6b;
+  font-weight: bold;
+  text-align: center;
 }
 
-#features-benefits li:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* User Section */
-
-
-
-@media (max-width: 768px) {
-    body {
-        display: flex;
-        flex-direction: row; /* Adjusts layout to horizontal */
-        flex-wrap: nowrap; /* Prevents wrapping */
-        
-    }
-
-    .user-section {
-        flex: 0 0 150px; /* Adjust width as needed, ensures it doesn't grow or shrink */
-        height: 100vh; /* Full viewport height */
-        overflow-y: auto; /* Makes it scrollable if content overflows */
-    }
-
-    .main-content {
-        flex: 1; /* Takes up the rest of the horizontal space */
-        overflow-y: auto; /* Makes it scrollable if content overflows */
-    }
-}
-
-
-#userList li {
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding: 10px;
-    background-color: #e3e4e6; /* Slightly darker background for list items */
-    color: #333; /* Darker text for list items for better readability */
-}
-#pagination button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  #pagination button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  #pagination span {
-    padding: 10px 20px;
-  }
-  #pagination button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  #pagination button.active {
-    background-color: #004085;
-  }
-  
-  #pagination button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  .visitor-counter {
-    background-color: #ffffff; /* White background */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-    padding: 20px 25px;
-    border-radius: 12px;
-    text-align: center;
-    margin: 30px auto; /* Center the div */
-    font-size: 18px;
-    color: #333; /* Dark text for readability */
-    max-width: 600px; /* Ensuring it doesn't stretch too wide */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
-}
-
-#visitCount {
-    display: inline-block;
-    background-color: #007bff; /* Bright blue for contrast */
-    color: #ffffff; /* White text */
-    padding: 5px 15px;
-    border-radius: 20px; /* Rounded edges for the count */
-    font-weight: 600;
-    margin-left: 5px;
-    font-size: 22px; /* Slightly larger font for emphasis */
-}
-footer {
-    text-align: center; /* Center the text */
-    
-}
-header {
-    background: #4694fa;
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
-}
-
-
-header nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-header nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-header nav ul li a {
-    color: #fff;
-    text-decoration: none;
-}
-
-section {
-    padding: 20px;
-}
-.pricing-table {
-    display: flex;
-    justify-content: space-around;
-    background-color: #f7f9fa; /* Set background color for the container */
-    color: white; /* Set text color for the container */
-}
-.plan:hover {
-    background-color: #2a7ffd;
-
-}
-.plan {
-    border: 1px solid #ddd;
-    padding: 10px;
-    width: 30%;
-    background-color: #4694fa; /* Set background color for each plan */
-    color: rgb(248, 245, 245); /* Set text color for each plan */
-}
-#contactForm {
-    background-color: #4694fa; /* Background color */
-    padding: 20px; /* Padding around the form elements */
-    max-width: 600px; /* Maximum width of the form */
-    margin: 0 auto; /* Center the form horizontally */
-    color: white; /* Text color */
-    font-family: Arial, sans-serif; /* Font family */
-    border-radius: 8px; /* Rounded corners */
-}
-
-#contactForm label {
-    display: block; /* Make labels block to ensure inputs align under them */
-    margin-bottom: 5px; /* Margin below the label */
-}
-
-#contactForm input[type="text"],
-#contactForm input[type="email"],
-#contactForm textarea {
-    width: 100%; /* Make input and textarea span the full width of the form */
-    padding: 8px; /* Padding inside the inputs and textarea */
-    margin-bottom: 20px; /* Margin below the inputs and textarea */
-    border: 1px solid #ddd; /* Border color */
-    border-radius: 4px; /* Rounded corners for inputs and textarea */
-    box-sizing: border-box; /* Box sizing to ensure padding doesn't affect width */
-}
-
-#contactForm button {
-    background-color: white; /* Button background color */
-    color: #4694fa; /* Button text color */
-    padding: 10px 20px; /* Padding inside the button */
-    border: none; /* Remove border */
-    cursor: pointer; /* Cursor to indicate it's clickable */
-    border-radius: 4px; /* Rounded corners for the button */
-    transition: background-color 0.3s; /* Transition for hover effect */
-}
-
-#contactForm button:hover {
-    background-color: #ddd; /* Background color on hover */
-}
 .button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4694fa;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  .button:hover {
-    background-color: #6ea8f3;
-  }
-  .button1 {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4694fa;
-    color: rgb(253, 249, 249);
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  .button1.button1:hover {
-    background-color: #4694fa;
-  }
-  .iframe-container {
-    position: relative;
-    overflow: hidden;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
-    width: 100%; /* Full width */
+  background-color: #042dfe; /* Green */
+  border: none;
+  color: rgb(255, 2, 2);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 20px 0;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.iframe-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-features-benefits{
-    background-color: #459afc;
-}
-li {
-    color: #011020;
-    
-}
-.video-container {
-    display: flex;
-    justify-content: center; /* This centers the video in the container horizontally */
-    align-items: center; /* This centers the video in the container vertically, if needed */
-    flex-direction: column;
-  }
-
-/* Style the buttons that are used to open and close the accordion panel */
-.accordion {
-    background-color: #4e93fc;
-    color: #fafafa;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    text-align: left;
-    border: none;
-    outline: none;
-    transition: 0.4s;
-  }
-  
-  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-  .active, .accordion:hover {
-    background-color: #b6caf5;
-  }
-  
-  /* Style the accordion panel. Note: hidden by default */
-  .panel {
-    padding: 0 18px;
-    background-color: white;
-    display: none;
-    overflow: hidden;
-  }
-  
-  /* Optional: If you want the video to be centered vertically in the entire viewport */
- 
-  .fa {
-    padding: 20px;
-    font-size: 30px;
-    width: 30px;
-    text-align: center;
-    text-decoration: none;
-    margin: 5px 2px;
-    border-radius: 50%;
-}
-
-.fa:hover {
-    opacity: 0.7;
-}
-
-.fa-facebook {
-    background: #3B5998;
-    color: white;
-}
-
-.fa-twitter {
-    background: #55ACEE;
-    color: white;
-}
-
-#likeButton {
-    margin-top: 10px; /* Space between the like button and the counts */
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-#likeButton #viewCount, #likeCount {
-    font-size: 18px;
-    margin-top: 10px;
-    text-align: center;
-}
-
-div {
-    text-align: left ; /* Center the text of view and like counts */
-}
-
-#video-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Maintain aspect ratio */
-    z-index: -1; /* Place the video behind other content */
-}
-
-#content {
-    position: relative;
-    z-index: 1; /* Place content in front of the video */
-    color: white; /* Adjust text color for visibility */
+.button:hover {
+  background-color: #fffb00; /* Darker green */
 }
