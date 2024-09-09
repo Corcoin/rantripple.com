@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>RantRipple AI</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            color: #fff;
+            background-color: #121212;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        #heroVideo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: #ff0066;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ff4081;
+        }
+
+        /* About Section */
+        #about {
+            padding: 50px 0;
+            text-align: center;
+            background-color: #202020;
+        }
+
+        #about h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        #about p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Video Section */
+        #video {
+            padding: 50px 0;
+            text-align: center;
+            background-color: #121212;
+        }
+
+        #video h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .video-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px 0;
+            text-align: center;
+            background-color: #202020;
+        }
+
+        footer p {
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero">
+            <div class="overlay"></div>
+            <video autoplay muted loop id="heroVideo">
+                <source src="Recording 2024-09-08 121904.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-content">
+                <h1>RantRipple AI</h1>
+                <p>Where Brain Waves and AI Meet the Future</p>
+                <a href="#about" class="btn">Watch Our AI in Action</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="about">
+            <div class="container">
+                <h2>What is RantRipple AI?</h2>
+                <p>RantRipple AI is an innovative system that uses real-time brain wave data, including Beta, Gamma, and Theta signals, to enable human-like interaction. Unlike traditional AI, RantRipple AI doesn't rely on guesses or predictions. Instead, it processes real brain wave signals for precise communication.</p>
+            </div>
+        </section>
+
+        <section id="video">
+            <div class="container">
+                <h2>AI in Action</h2>
+                <div class="video-wrapper">
+                    <video controls>
+                        <source src="Recording 2024-09-08 121904.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 RantRipple AI. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
