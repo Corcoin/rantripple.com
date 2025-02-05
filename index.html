@@ -3,287 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <title>RantRipple AI</title>
+    <title>Secure 2FA Browser - Download</title>
     <style>
-        /* General Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
         body {
-            color: #fff;
-            background-color: #121212;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* Hero Section */
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-        }
-
-        #heroVideo {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
-
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
-
-        .hero-content {
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 4em;
-            margin-bottom: 10px;
-        }
-
-        .hero p {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            background-color: #ff0066;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 1.2em;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #ff4081;
-        }
-
-        /* About Section */
-        #about {
-            padding: 50px 0;
-            text-align: center;
-            background-color: #202020;
-        }
-
-        #about h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        #about p {
-            font-size: 1.2em;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* Video Section */
-        #video {
-            padding: 50px 0;
-            text-align: center;
-            background-color: #121212;
-        }
-
-        #video h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        .video-wrapper {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        video {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        /* Investor Projections Section */
-        #projections {
-            padding: 50px 0;
-            text-align: center;
-            background-color: #202020;
-        }
-
-        #projections h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        .table-wrapper {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-
-        th, td {
-            border: 1px solid #fff;
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #ff0066;
-        }
-
-        tr:nth-child(even) {
-            background-color: #333;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #444;
-        }
-
-        /* Footer */
-        footer {
-            padding: 20px 0;
-            text-align: center;
-            background-color: #202020;
-        }
-
-        footer p {
-            font-size: 1em;
-        }
-       .fa {
-  padding: 20px;
-  font-size: 30px;
-  width: 30px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 50%;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
-.fa:hover {
-    opacity: 0.7;
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 50px 20px;
 }
-        .fa-linkedin {
-  background: #007bb5;
-  color: white;
+
+header {
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+p {
+    font-size: 1.2em;
+    opacity: 0.8;
+}
+
+.download-section {
+    margin-top: 30px;
+}
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #00bcd4;
+}
+
+.download-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    display: block;
+    background: #ff5722;
+    padding: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #e64a19;
+}
+
+.windows { background: #0078D4; }
+.mac { background: #A2AAAD; }
+.linux { background: #FCC624; }
+
+.features {
+    margin-top: 50px;
+}
+
+.features p {
+    font-size: 1.2em;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px;
 }
 
     </style>
 </head>
 <body>
-    <header>
-        <div class="hero">
-            <div class="overlay"></div>
-            <video autoplay muted loop id="heroVideo">
-                <source src= "8327799-uhd_3840_2160_25fps (1).mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="hero-content">
-                <h1>RantRipple AI</h1>
-                <p>Where Brain Waves and AI Meet the Future</p>
-                <a href="#about" class="btn">Watch Our AI in Action</a>
-            </div>
-        </div>
-    </header>
 
-    <main>
-        <section id="about">
-            <div class="container">
-                <h2>What is RantRipple AI?</h2>
-                <p>RantRipple AI is an innovative system that uses real-time brain wave data, including Beta, Gamma, and Theta signals, to enable human-like interaction. Unlike traditional AI, RantRipple AI doesn't rely on guesses or predictions. Instead, it processes real brain wave signals for precise communication.</p>
-            </div>
-        </section>
-
-        <section id="video">
-            <div class="container">
-                <h2>RTR1 AI in Action</h2>
-                <div class="video-wrapper">
-                    <video controls>
-                        <source src="Recording 2024-09-08 121904 (1) (1) (1) (1).mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-            </div>
-        </section>
-        <section id="video">
-            <div class="container">
-                <h2>RTR1 AI in Action Multi-tasking senario</h2>
-                <div class="video-wrapper">
-                    <video controls>
-                        <source src="one1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-            </div>
-        </section>
-
-        <section id="projections">
-            <div class="container">
-                <h2>15YR Investor Projections</h2>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Year</th>
-                                <th>15YR Projected Profit ($M)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>2024</td><td>2.5</td></tr>
-                            <tr><td>2025</td><td>5.0</td></tr>
-                            <tr><td>2026</td><td>7.8</td></tr>
-                            <tr><td>2027</td><td>11.4</td></tr>
-                            <tr><td>2028</td><td>15.6</td></tr>
-                            <tr><td>2029</td><td>20.3</td></tr>
-                            <tr><td>2030</td><td>25.9</td></tr>
-                            <tr><td>2031</td><td>32.4</td></tr>
-                            <tr><td>2032</td><td>40.0</td></tr>
-                            <tr><td>2033</td><td>48.9</td></tr>
-                            <tr><td>2034</td><td>59.4</td></tr>
-                            <tr><td>2035</td><td>71.8</td></tr>
-                            <tr><td>2036</td><td>86.5</td></tr>
-                            <tr><td>2037</td><td>103.8</td></tr>
-                            <tr><td>2038</td><td>124.1</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
     <div class="container">
-        <p>&copy; 2024 RantRipple AI. All rights reserved.</p>
-        <div class="social-icons">
-            
-            <a href="https://www.linkedin.com/in/brian-wesson-6b159621b/" class="fa fa-linkedin"></a>
-        </div>
+        <header>
+            <h1>Introducing the First 2FA Internet Browser</h1>
+            <p>Your security matters. Browse with built-in Two-Factor Authentication.</p>
+        </header>
+
+        <section class="download-section">
+            <h2>Download Now</h2>
+            <div class="download-buttons">
+                <a href="/downloads/winsimple-browser.exe" class="btn windows">Download for Windows</a>
+                <a href="/downloads/macsimple-browser" class="btn mac">Download for Mac</a>
+                <a href="/downloads/linuxsimple-browser" class="btn linux">Download for Linux</a>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>Why Secure 2FA Browser?</h2>
+            <p>✔ Built-in 2FA protection against phishing & hacking</p>
+            <p>✔ Lightning-fast & privacy-focused</p>
+            <p>✔ No third-party trackers, complete anonymity</p>
+        </section>
     </div>
-</footer>
+
+    <script>
+        function getOS() {
+            let userAgent = window.navigator.userAgent.toLowerCase();
+            let platform = window.navigator.platform.toLowerCase();
+
+            if (platform.includes("win")) return "Windows";
+            if (platform.includes("mac") || userAgent.includes("mac")) return "Mac";
+            if (platform.includes("linux")) return "Linux";
+            return "Unknown";
+        }
+
+        function autoRedirect() {
+            let os = getOS();
+            if (os === "Windows") window.location.href = "/downloads/winsimple-browser.exe";
+            else if (os === "Mac") window.location.href = "/downloads/macsimple-browser";
+            else if (os === "Linux") window.location.href = "/downloads/linuxsimple-browser";
+        }
+
+        window.onload = function () {
+            setTimeout(() => {
+                if (confirm("Would you like to download the correct version for your OS?")) {
+                    autoRedirect();
+                }
+            }, 2000);
+        };
+    </script>
 
 </body>
 </html>
