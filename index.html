@@ -3,139 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure 2FA Browser - Download</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FutureNet - Revolutionizing Connectivity</title>
     <style>
-        body {
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: white;
-    text-align: center;
+        /* Reset some defaults */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-.container {
-    max-width: 800px;
-    margin: auto;
-    padding: 50px 20px;
+/* Body and background styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(120deg, #3c3c9e, #1f1f50);
+    color: white;
 }
 
-header {
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: url('https://via.placeholder.com/1500x900') center/cover no-repeat;
+    color: #fff;
+    position: relative;
+}
+
+.hero-content {
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.5rem;
     margin-bottom: 30px;
 }
 
-h1 {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #ffcc00;
+.cta-button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-color: #00ff99;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-p {
-    font-size: 1.2em;
-    opacity: 0.8;
+.cta-button:hover {
+    background-color: #009977;
 }
 
-.download-section {
-    margin-top: 30px;
+/* How it Works Section */
+.how-it-works {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #28282e;
 }
 
-h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #00bcd4;
+.how-it-works h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
 }
 
-.download-buttons {
+.process {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
-.btn {
-    display: block;
-    background: #ff5722;
-    padding: 15px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: white;
-    font-size: 1.2em;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background: #e64a19;
-}
-
-.windows { background: #0078D4; }
-.mac { background: #A2AAAD; }
-.linux { background: #FCC624; }
-
-.features {
-    margin-top: 50px;
-}
-
-.features p {
-    font-size: 1.2em;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px;
+.step {
+    width: 30%;
+    padding: 20px;
+    background-color: #444;
     border-radius: 8px;
     margin: 10px;
 }
 
+.step h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+/* Features Section */
+.features {
+    padding: 40px 20px;
+    background-color: #333;
+    text-align: center;
+}
+
+.features ul {
+    list-style: none;
+    font-size: 1.2rem;
+    line-height: 2;
+}
+
+.features li {
+    margin-bottom: 20px;
+}
+
+/* Call to Action */
+.cta {
+    padding: 60px 20px;
+    background-color: #222;
+    text-align: center;
+}
+
+.cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Footer Section */
+footer {
+    padding: 20px;
+    background-color: #111;
+    text-align: center;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 768px) {
+    .process {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .step {
+        width: 80%;
+    }
+}
+
     </style>
+    
 </head>
 <body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Welcome to RantRipple CloudNet</h1>
+            <p>The next evolution of internet connectivity—Powered by your phone's hotspot, fast, reliable, and limitless.</p>
+            <button class="cta-button" onclick="scrollToHowItWorks()">How it Works</button>
+        </div>
+    </header>
 
-    <div class="container">
-        <header>
-            <h1>Introducing the First 2FA Internet Browser</h1>
-            <p>Your security matters. Browse with built-in Two-Factor Authentication.</p>
-        </header>
-
-        <section class="download-section">
-            <h2>Download Now</h2>
-            <div class="download-buttons">
-                <a href="/downloads/winsimple-browser.exe" class="btn windows">Download for Windows</a>
-                <a href="/downloads/macsimple-browser" class="btn mac">Download for Mac</a>
-                <a href="/downloads/linuxsimple-browser" class="btn linux">Download for Linux</a>
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <h2>How It Works</h2>
+        <div class="process">
+            <div class="step">
+                <h3>1. Connect Your Phone</h3>
+                <p>Turn on your phone's hotspot and connect to your computer, no matter where you are.</p>
             </div>
-        </section>
+            <div class="step">
+                <h3>2. Start the Virtual Interface</h3>
+                <p>Run the software that creates a virtual network interface, routing your traffic through our ultra-fast gateway.</p>
+            </div>
+            <div class="step">
+                <h3>3. Enjoy High-Speed Internet</h3>
+                <p>Access the internet through your phone's data plan, but with speed and reliability provided by our dedicated gateway.</p>
+            </div>
+        </div>
+    </section>
 
-        <section class="features">
-            <h2>Why Secure 2FA Browser?</h2>
-            <p>✔ Built-in 2FA protection against phishing & hacking</p>
-            <p>✔ Lightning-fast & privacy-focused</p>
-            <p>✔ No third-party trackers, complete anonymity</p>
-        </section>
-    </div>
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Features & Benefits</h2>
+        <ul>
+            <li><strong>Unlimited Speed:</strong> No throttling or speed limits like traditional hotspots.</li>
+            <li><strong>Seamless Connectivity:</strong> Enjoy fast internet, even in remote areas with poor ISP coverage.</li>
+            <li><strong>Easy Setup:</strong> Simply activate the hotspot and run the software—no complicated setup!</li>
+            <li><strong>Low Latency:</strong> Enjoy smoother browsing, streaming, and gaming with reduced latency.</li>
+        </ul>
+    </section>
 
+    <!-- Call to Action -->
+    <section class="cta">
+        <h2>Ready to Experience the Future of Connectivity?</h2>
+        <p>Join us and revolutionize the way you access the internet.</p> <br>
+        <button class="cta-button" onclick="window.location.href='signup.html'">Sign Up Now</button>
+    </section>
     <script>
-        function getOS() {
-            let userAgent = window.navigator.userAgent.toLowerCase();
-            let platform = window.navigator.platform.toLowerCase();
+        // Scroll to the "How it Works" section when the button is clicked
+function scrollToHowItWorks() {
+    document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' });
+}
 
-            if (platform.includes("win")) return "Windows";
-            if (platform.includes("mac") || userAgent.includes("mac")) return "Mac";
-            if (platform.includes("linux")) return "Linux";
-            return "Unknown";
-        }
-
-        function autoRedirect() {
-            let os = getOS();
-            if (os === "Windows") window.location.href = "/downloads/winsimple-browser.exe";
-            else if (os === "Mac") window.location.href = "/downloads/macsimple-browser";
-            else if (os === "Linux") window.location.href = "/downloads/linuxsimple-browser";
-        }
-
-        window.onload = function () {
-            setTimeout(() => {
-                if (confirm("Would you like to download the correct version for your OS?")) {
-                    autoRedirect();
-                }
-            }, 2000);
-        };
     </script>
 
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2023 RantRipple CloudNet. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
