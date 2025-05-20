@@ -1,206 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>☁️   Rantripple CloudNet - Revolutionizing Connectivity</title>
-    <style>
-        /* Reset some defaults */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Body and background styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(120deg, #3c3c9e, #1f1f50);
-    color: white;
-}
-
-/* Hero Section */
-.hero {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: url('https://via.placeholder.com/1500x900') center/cover no-repeat;
-    color: #fff;
-    position: relative;
-}
-
-.hero-content {
-    z-index: 2;
-}
-
-.hero h1 {
-    font-size: 4rem;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
-}
-
-.cta-button {
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    background-color: #00ff99;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.cta-button:hover {
-    background-color: #009977;
-}
-
-/* How it Works Section */
-.how-it-works {
-    padding: 60px 20px;
-    text-align: center;
-    background-color: #28282e;
-}
-
-.how-it-works h2 {
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-}
-
-.process {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.step {
-    width: 30%;
-    padding: 20px;
-    background-color: #444;
-    border-radius: 8px;
-    margin: 10px;
-}
-
-.step h3 {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-}
-
-/* Features Section */
-.features {
-    padding: 40px 20px;
-    background-color: #333;
-    text-align: center;
-}
-
-.features ul {
-    list-style: none;
-    font-size: 1.2rem;
-    line-height: 2;
-}
-
-.features li {
-    margin-bottom: 20px;
-}
-
-/* Call to Action */
-.cta {
-    padding: 60px 20px;
-    background-color: #222;
-    text-align: center;
-}
-
-.cta h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-
-/* Footer Section */
-footer {
-    padding: 20px;
-    background-color: #111;
-    text-align: center;
-}
-
-/* Responsiveness */
-@media screen and (max-width: 768px) {
-    .process {
-        flex-direction: column;
-        align-items: center;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>XCube - Enter the New Internet</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffcc;
+      perspective: 400px;
     }
 
-    .step {
-        width: 80%;
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
     }
-}
 
-    </style>
-    
+    .lightspeed {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(white, white 2px, transparent 2px, transparent 10px);
+      animation: speed 1s linear infinite;
+      mix-blend-mode: screen;
+      opacity: 0.03;
+      z-index: 1;
+    }
+
+    @keyframes speed {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 1000px; }
+    }
+
+    .crawl-container {
+      position: absolute;
+      top: 100vh;
+      width: 100%;
+      transform-origin: 50% 100%;
+      animation: crawl 120s linear forwards;
+      z-index: 2;
+    }
+
+    .crawl {
+      font-size: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: justify;
+      transform: rotateX(25deg);
+      color: #00ffcc;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00ffff;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    @keyframes crawl {
+      0% {
+        top: 100vh;
+        transform: rotateX(25deg) translateZ(0);
+      }
+      100% {
+        top: -800vh;
+        transform: rotateX(25deg) translateZ(-2000px);
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-content">
-            <h1>Welcome to RantRipple CloudNet</h1>
-            <p>The next evolution of internet connectivity—Powered by your phone's hotspot, fast, reliable, and limitless.</p>
-            <button class="cta-button" onclick="scrollToHowItWorks()">How it Works</button>
-        </div>
-    </header>
+  <canvas id="starCanvas"></canvas>
+  <div class="lightspeed"></div>
+  <div class="crawl-container">
+    <div class="crawl">
+      <h1>XCube: A New Digital Era Begins</h1>
+      <p>
+        In the distant reaches of cyberspace, a new force awakens. XCube isn't just another browser...
+        it's the gateway to the next evolution of the internet.
+      </p>
+      <p>
+        Gone are the days of centralized control, lag, and spam. The future is encrypted, decentralized,
+        lightning-fast — powered by you.
+      </p>
+      <p>
+        The X3Browser connects to an alternate protocol through <strong>xxx.google.com</strong>,
+        redefining what a URL means. No longer are you accessing a webpage — you’re syncing with a living stream of intelligent data.
+      </p>
+      <p>
+        Real-time language translation, holographic-ready content, AI interfaces — this isn't sci-fi.
+        This is XCube technology. Built by dreamers. Forged in code.
+      </p>
+      <p>
+        Your Android device is the starship. Your mind is the pilot. Explore dimensions of data in ways never thought possible.
+        Tap into XCube.
+      </p>
+      <p>
+        Initiating light-speed access...<br>
+        Standing by for protocol handshake...<br>
+        Neural-link established. Ready for launch.
+      </p>
+      <p>
+        The internet will never be the same. You are the signal. You are the node. You are the future.
+        This is not just a browser.<br>
+        This is XCube.
+      </p>
+    </div>
+  </div>
 
-    <!-- How It Works Section -->
-    <section class="how-it-works" id="how-it-works">
-        <h2>How It Works</h2>
-        <div class="process">
-            <div class="step">
-                <h3>1. Connect Your Phone</h3>
-                <p>Turn on your phone's hotspot and connect to your computer, no matter where you are.</p>
-            </div>
-            <div class="step">
-                <h3>2. Start the Virtual Interface</h3>
-                <p>Run the software that creates a virtual network interface, routing your traffic through our ultra-fast gateway.</p>
-            </div>
-            <div class="step">
-                <h3>3. Enjoy High-Speed Internet</h3>
-                <p>Access the internet through your phone's data plan, but with speed and reliability provided by our dedicated gateway.</p>
-            </div>
-        </div>
-    </section>
+  <script>
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+    const stars = [];
+    const numStars = 800;
 
-    <!-- Features Section -->
-    <section class="features">
-        <h2>Features & Benefits</h2>
-        <ul>
-            <li><strong>Unlimited Speed:</strong> No throttling or speed limits like traditional hotspots.</li>
-            <li><strong>Seamless Connectivity:</strong> Enjoy fast internet, even in remote areas with poor ISP coverage.</li>
-            <li><strong>Easy Setup:</strong> Simply activate the hotspot and run the software—no complicated setup!</li>
-            <li><strong>Low Latency:</strong> Enjoy smoother browsing, streaming, and gaming with reduced latency.</li>
-        </ul>
-    </section>
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
 
-    <!-- Call to Action -->
-    <section class="cta">
-        <h2>Ready to Experience the Future of Connectivity?</h2>
-        <p>Join us and revolutionize the way you access the internet.</p> <br>
-        <button class="cta-button" onclick="window.location.href='signup.html'">Sign Up Now</button>
-    </section>
-    <script>
-        // Scroll to the "How it Works" section when the button is clicked
-function scrollToHowItWorks() {
-    document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' });
-}
+    function createStars() {
+      stars.length = 0;
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5,
+          alpha: Math.random(),
+          delta: Math.random() * 0.02
+        });
+      }
+    }
 
-    </script>
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let star of stars) {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+        ctx.fill();
+        star.alpha += star.delta;
+        if (star.alpha <= 0 || star.alpha >= 1) star.delta = -star.delta;
+      }
+      requestAnimationFrame(drawStars);
+    }
 
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2023 RantRipple CloudNet. All Rights Reserved.</p>
-        <br>
-        <p>Owner Brian Wesson</p>
-    </footer>
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      createStars();
+    });
+
+    resizeCanvas();
+    createStars();
+    drawStars();
+  </script>
 </body>
 </html>
