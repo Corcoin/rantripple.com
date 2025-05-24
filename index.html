@@ -2,164 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>XCube - Enter the New Internet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rantripple - Software Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
-      overflow: hidden;
-      background: black;
-      font-family: 'Orbitron', sans-serif;
-      color: #00ffcc;
-      perspective: 400px;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 0;
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #2c3e50);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
     }
 
-    .lightspeed {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(white, white 2px, transparent 2px, transparent 10px);
-      animation: speed 1s linear infinite;
-      mix-blend-mode: screen;
-      opacity: 0.03;
-      z-index: 1;
-    }
-
-    @keyframes speed {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 1000px; }
-    }
-
-    .crawl-container {
-      position: absolute;
-      top: 100vh;
-      width: 100%;
-      transform-origin: 50% 100%;
-      animation: crawl 120s linear forwards;
-      z-index: 2;
-    }
-
-    .crawl {
-      font-size: 2rem;
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: justify;
-      transform: rotateX(25deg);
-      color: #00ffcc;
-      padding: 0 1rem;
-    }
-
-    h1 {
+    header {
       text-align: center;
-      color: #00ffff;
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 10px #0ff;
+      margin-bottom: 3rem;
     }
 
-    @keyframes crawl {
-      0% {
-        top: 100vh;
-        transform: rotateX(25deg) translateZ(0);
-      }
-      100% {
-        top: -800vh;
-        transform: rotateX(25deg) translateZ(-2000px);
-      }
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #00bcd4;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      color: #cfd8dc;
+    }
+
+    .cta-button {
+      margin-top: 2rem;
+      background: #00bcd4;
+      color: #1e1e2f;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background: #0097a7;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #90a4ae;
+      text-align: center;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+      max-width: 600px;
+    }
+
+    .glass-card h2 {
+      font-size: 2rem;
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+
+    .glass-card p {
+      color: #b0bec5;
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
-  <canvas id="starCanvas"></canvas>
-  <div class="lightspeed"></div>
-  <div class="crawl-container">
-    <div class="crawl">
-      <h1>XCube: A New Digital Era Begins</h1>
-      <p>
-        In the distant reaches of cyberspace, a new force awakens. XCube isn't just another browser...
-        it's the gateway to the next evolution of the internet.
-      </p>
-      <p>
-        Gone are the days of centralized control, lag, and spam. The future is encrypted, decentralized,
-        lightning-fast — powered by you.
-      </p>
-      <p>
-        The X3Browser connects to an alternate protocol through <strong>xxx.google.com</strong>,
-        redefining what a URL means. No longer are you accessing a webpage — you’re syncing with a living stream of intelligent data.
-      </p>
-      <p>
-        Real-time language translation, holographic-ready content, AI interfaces — this isn't sci-fi.
-        This is XCube technology. Built by dreamers. Forged in code.
-      </p>
-      <p>
-        Your Android device is the starship. Your mind is the pilot. Explore dimensions of data in ways never thought possible.
-        Tap into XCube.
-      </p>
-      <p>
-        Initiating light-speed access...<br>
-        Standing by for protocol handshake...<br>
-        Neural-link established. Ready for launch.
-      </p>
-      <p>
-        The internet will never be the same. You are the signal. You are the node. You are the future.
-        This is not just a browser.<br>
-        This is XCube.
-      </p>
-    </div>
+  <header>
+    <h1>Rantripple</h1>
+    <p>Empowering Businesses with Tailored Software Solutions for 5 Years</p>
+  </header>
+
+  <div class="glass-card">
+    <h2>What We Do</h2>
+    <p>
+      At Rantripple, we specialize in building reliable and intelligent software for businesses of all sizes. From web apps to backend systems, we deliver production-ready solutions tailored to your needs.
+    </p>
+    <button class="cta-button">Get in Touch</button>
   </div>
 
-  <script>
-    const canvas = document.getElementById('starCanvas');
-    const ctx = canvas.getContext('2d');
-    const stars = [];
-    const numStars = 800;
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    function createStars() {
-      stars.length = 0;
-      for (let i = 0; i < numStars; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          radius: Math.random() * 1.5,
-          alpha: Math.random(),
-          delta: Math.random() * 0.02
-        });
-      }
-    }
-
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let star of stars) {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${star.alpha})`;
-        ctx.fill();
-        star.alpha += star.delta;
-        if (star.alpha <= 0 || star.alpha >= 1) star.delta = -star.delta;
-      }
-      requestAnimationFrame(drawStars);
-    }
-
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      createStars();
-    });
-
-    resizeCanvas();
-    createStars();
-    drawStars();
-  </script>
+  <footer>
+    &copy; 2025 Rantripple. All rights reserved.
+  </footer>
 </body>
 </html>
