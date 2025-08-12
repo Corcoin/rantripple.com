@@ -1,65 +1,10 @@
-<!--
-Virtual 1 Billion Servers — Clickable Servers with Per-Server Chat & File Sharing
-Single-file HTML app. Opens any virtual server (0 .. 999,999,999) — each server has its own
-chat and file-sharing area persisted via IndexedDB. The UI provides a paginated server list
-and a detail view for each server (open/close). Servers are still generated deterministically
-when unmodified so we never allocate 1 billion objects in memory.
-
-Features:
-- Server list (paginated) with Open buttons for each server.
-- Server detail view: per-server files (upload/share/download/delete) and chat room.
-- Persistent mutated servers saved to IndexedDB under key `server:<id>`.
-- Deterministic base generation for unmodified servers (xorshift32 seeded by id).
-- Quick open by ID, next/prev navigation, and copy/share file to other servers.
-
-How to use:
-- Open the HTML in your browser.
-- Use the list to open any server, or enter an ID and click Open.
-- Upload files, send chat messages; mutated servers persist between reloads.
-
-Author: ChatGPT — production-ready demo. Extend with WebSocket or WebRTC for real-time multi-client sync.
--->
-
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-  
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>☁️🖥️🏢RantRipple Cloud Datacenter  — 10 Billion Clickable Servers</title>
+<title>☁️ RantRipple Cloud Datacenter — 10 Billion Click & Open Servers</title>
 <style>
-  button.mini {
-  padding: 8px 10px;
-  min-height: 36px;
-}
-
-  @media (max-width: 768px) {
-  #detailView > div[style] {
-    display: flex !important;
-    flex-direction: column;
-  }
-}
-
-  @media (max-width: 768px) {
-  body { padding: 10px; }
-  header { flex-direction: column; align-items: flex-start; }
-  .controls { flex-direction: column; align-items: stretch; width: 100%; }
-  .toolbar { flex-direction: column; align-items: stretch; gap: 6px; }
-  input, button, select, textarea {
-    font-size: 16px; /* prevents zoom on iOS */
-    width: 100%;
-  }
-  .server-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-  .card { padding: 10px; }
-  .chat { height: 200px; }
-}
-
-@media (max-width: 480px) {
-  .server-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
-  .chat { height: 180px; }
-  .toolbar, .controls { gap: 4px; }
-}
-
   :root{font-family:Inter,system-ui,Segoe UI,Roboto,Arial}
   body{margin:0;padding:18px;background:#071028;color:#e6eef8}
   .app{max-width:1200px;margin:0 auto}
@@ -76,13 +21,22 @@ Author: ChatGPT — production-ready demo. Extend with WebSocket or WebRTC for r
   .mini{font-size:12px;padding:6px}
   .toolbar{display:flex;gap:8px;align-items:center;margin-bottom:10px}
   .hidden{display:none}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:6px 12px}
+  canvas{width:100%;height:140px;background:#061024;border-radius:8px}
+  @media (max-width: 768px){
+    body{padding:10px}
+    header{flex-direction:column;align-items:flex-start}
+    .controls,.toolbar{flex-direction:column;align-items:stretch}
+    .server-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+    .chat{height:240px}
+  }
 </style>
 </head>
 <body>
 <div class="app">
   <header>
     <h1 style="margin:0;font-size:20px">RantRipple Cloud Datacenter — 10 Billion Click & Open Servers</h1>
-    <div class="muted">Each server has its own chat and file-sharing area. Persistent edits saved locally.</div>
+    <div class="muted">Each server has its own RAM-only live chat & bandwidth monitor. Files persist via IndexedDB.</div>
   </header>
 
   <div class="card" id="mainCard">
@@ -92,15 +46,14 @@ Author: ChatGPT — production-ready demo. Extend with WebSocket or WebRTC for r
         <input id="gotoId" type="number" min="0" max="999999999" placeholder="12345" style="width:160px" />
         <button id="openIdBtn" class="mini">Open</button>
       </div>
-
       <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
-        <div class="muted">TOTAL_SERVERS: <strong id="totalServers">1000000000</strong></div>
+        <div class="muted">TOTAL_SERVERS: <strong id="totalServers">1,000,000,000</strong></div>
         <div style="width:14px"></div>
         <div class="muted">Cached: <strong id="cacheSize">0</strong></div>
       </div>
     </div>
 
-    <!-- Server list view -->
+    <!-- List view -->
     <div id="listView">
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
         <label class="muted">Page start ID</label>
@@ -108,27 +61,26 @@ Author: ChatGPT — production-ready demo. Extend with WebSocket or WebRTC for r
         <label class="muted">Page size</label>
         <input id="pageSize" type="number" min="1" max="500" value="100" style="width:100px" />
         <button id="renderPage" class="mini">Render Page</button>
-        <div style="margin-left:auto" class="muted">Tip: large page sizes are visual only; servers are generated on demand.</div>
+        <div style="margin-left:auto" class="muted">Tip: servers generate on demand; nothing heavy is preallocated.</div>
       </div>
-
       <div id="serverGrid" class="server-grid"></div>
     </div>
 
-    <!-- Server detail view -->
+    <!-- Detail view -->
     <div id="detailView" class="hidden">
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-        <button id="backToList" class="mini">« Back to List</button>
-        <div class="muted">Viewing Server ID: <strong id="detailId">-</strong></div>
+        <button id="backToList" class="mini">« Back</button>
+        <div class="muted">Server ID: <strong id="detailId">-</strong></div>
         <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
           <button id="prevServer" class="mini">Prev</button>
           <button id="nextServer" class="mini">Next</button>
-          <button id="clearDetailPersist" class="mini">Clear Persistence</button>
+          <button id="clearDetailPersist" class="mini" title="Reset files/chat (chat is RAM so this just resets files)">Reset Files</button>
         </div>
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:12px">
         <div>
-          <div class="muted">Server Info</div>
+          <div class="muted">Server Info & Bandwidth</div>
           <div id="serverInfo" class="card" style="margin-top:8px"></div>
 
           <div style="margin-top:10px" class="muted">Upload / Share</div>
@@ -136,7 +88,7 @@ Author: ChatGPT — production-ready demo. Extend with WebSocket or WebRTC for r
             <input id="fileInput" type="file" multiple />
             <div style="height:8px"></div>
             <input id="shareTo" placeholder="Share to server id (e.g. 98765)" />
-            <button id="shareSelected" class="mini">Share Selected -> Target</button>
+            <button id="shareSelected" class="mini">Share Selected → Target</button>
             <div style="height:8px"></div>
             <button id="deleteSelected" class="mini">Delete Selected</button>
           </div>
@@ -146,7 +98,7 @@ Author: ChatGPT — production-ready demo. Extend with WebSocket or WebRTC for r
         </div>
 
         <div>
-          <div class="muted">Chat Room</div>
+          <div class="muted">Chat Room (RAM‑only, live across tabs)</div>
           <div class="card" style="margin-top:8px">
             <div id="chatArea" class="chat"></div>
             <div style="display:flex;gap:8px;margin-top:8px">
@@ -154,24 +106,26 @@ Author: ChatGPT — production-ready demo. Extend with WebSocket or WebRTC for r
               <input id="chatMsg" placeholder="message..." style="flex:1" />
               <button id="sendChat" class="mini">Send</button>
             </div>
-            <div style="margin-top:8px" class="muted">Chat messages are per-server and persisted locally.</div>
+            <div style="margin-top:8px" class="muted">Chat is ephemeral (RAM). Close/refresh = cleared. Uses BroadcastChannel for realtime.</div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 
-  <footer style="margin-top:14px;color:#9db0d6;font-size:13px">Deterministic base + IndexedDB-backed delta store. Extend with network sync for live multi-user chat.</footer>
+  <footer style="margin-top:14px;color:#9db0d6;font-size:13px">
+    Files persist in IndexedDB; chat and bandwidth stats are RAM‑only and sync across tabs with BroadcastChannel.
+  </footer>
 </div>
 
 <script>
-// CONFIG
-const TOTAL_SERVERS = 10_000_000_000;
+/* ========== CONFIG ========== */
+const TOTAL_SERVERS = 1_000_000_000;
 const MAX_FILES_PER_SERVER = 128;
 const FILES_PREVIEW = 200;
+document.getElementById('totalServers').textContent = TOTAL_SERVERS.toLocaleString();
 
-// ===== IndexedDB helpers =====
+/* ========== IndexedDB (files only) ========== */
 function openDb(){
   return new Promise((res, rej) => {
     const rq = indexedDB.open('virtual-1b-servers', 1);
@@ -187,18 +141,89 @@ async function idbGet(key){ const db = await openDb(); return new Promise((res,r
 async function idbPut(key,val){ const db=await openDb(); return new Promise((res,rej)=>{ const tx=db.transaction('servers','readwrite'); const store=tx.objectStore('servers'); const r=store.put(val,key); r.onsuccess=()=>res(true); r.onerror=()=>rej(r.error); }); }
 async function idbDelete(key){ const db=await openDb(); return new Promise((res,rej)=>{ const tx=db.transaction('servers','readwrite'); const store=tx.objectStore('servers'); const r=store.delete(key); r.onsuccess=()=>res(true); r.onerror=()=>rej(r.error); }); }
 
-// ===== Deterministic generator (xorshift32) =====
+/* ========== Deterministic base ========== */
 function xorshift32(seed){ let x=seed>>>0; return function(){ x^=x<<13; x>>>=0; x^=x>>>17; x>>>=0; x^=x<<5; x>>>=0; return x>>>0; }; }
-function generateBaseServer(serverId){ const rand=xorshift32(serverId+0x9e3779b1); const numFiles=rand()%(MAX_FILES_PER_SERVER+1); const files=new Array(numFiles); for(let i=0;i<numFiles;i++){ const r1=rand(); const name=`file_${(r1%1_000_000).toString().padStart(6,'0')}.dat`; const size=rand()%(1024*1024*10); const hash=((r1>>>5)^rand()).toString(16).slice(0,8); files[i]={ name, size, hash, createdAt:new Date(1600000000000 + (serverId%1_000_000)*1000 + i*1000).toISOString() }; } const meta={ id:serverId, owner:`owner_${serverId%10000}`, createdAt:new Date(1600000000000 + (serverId%1_000_000)*1000).toISOString() }; return { id:serverId, files, meta, chat:[] }; }
+function generateBaseServer(serverId){
+  const rand=xorshift32(serverId+0x9e3779b1);
+  const numFiles=rand()%(MAX_FILES_PER_SERVER+1);
+  const files=new Array(numFiles);
+  for(let i=0;i<numFiles;i++){
+    const r1=rand();
+    const name=`file_${(r1%1_000_000).toString().padStart(6,'0')}.dat`;
+    const size=rand()%(1024*1024*10);
+    const hash=((r1>>>5)^rand()).toString(16).slice(0,8);
+    files[i]={ name, size, hash, createdAt:new Date(1600000000000 + (serverId%1_000_000)*1000 + i*1000).toISOString() };
+  }
+  const meta={ id:serverId, owner:`owner_${serverId%10000}`, createdAt:new Date(1600000000000 + (serverId%1_000_000)*1000).toISOString() };
+  return { id:serverId, files, meta };
+}
 
-// In-memory cache for quick UX; persistence occurs in IndexedDB when mutated.
+/* ========== In-memory cache (for speed) ========== */
 const inMemoryCache = new Map();
-async function loadServer(serverId){ serverId=Number(serverId); if(inMemoryCache.has(serverId)) return inMemoryCache.get(serverId); const key=`server:${serverId}`; const stored=await idbGet(key); if(stored){ inMemoryCache.set(serverId, stored); updateCacheUI(); return stored; } const base=generateBaseServer(serverId); inMemoryCache.set(serverId, base); updateCacheUI(); return base; }
-async function persistServer(server){ const key=`server:${server.id}`; await idbPut(key, server); inMemoryCache.set(server.id, server); updateCacheUI(); }
-async function clearPersist(serverId){ const key=`server:${serverId}`; await idbDelete(key); const base=generateBaseServer(serverId); inMemoryCache.set(serverId, base); updateCacheUI(); }
 function updateCacheUI(){ document.getElementById('cacheSize').textContent = inMemoryCache.size; }
+async function loadServer(serverId){
+  serverId=Number(serverId);
+  if(inMemoryCache.has(serverId)) return inMemoryCache.get(serverId);
+  const key=`server:${serverId}`;
+  const stored=await idbGet(key);
+  const base=generateBaseServer(serverId);
+  const out = stored ? stored : {...base};
+  inMemoryCache.set(serverId, out);
+  updateCacheUI();
+  return out;
+}
+async function persistServer(server){
+  const key=`server:${server.id}`;
+  await idbPut(key, server);
+  inMemoryCache.set(server.id, server);
+  updateCacheUI();
+}
+async function clearPersist(serverId){
+  const key=`server:${serverId}`;
+  await idbDelete(key);
+  const base=generateBaseServer(serverId);
+  inMemoryCache.set(serverId, base);
+  updateCacheUI();
+}
 
-// ===== UI bindings =====
+/* ========== RAM Chat + BroadcastChannel per server ========== */
+const ramChats = new Map(); // serverId -> [{name,text,ts}]
+function getChat(serverId){ if(!ramChats.has(serverId)) ramChats.set(serverId, []); return ramChats.get(serverId); }
+function chatChannelName(id){ return `server-chat-${id}`; }
+function trafficChannelName(id){ return `server-traffic-${id}`; } // for bandwidth sync across tabs
+
+/* ========== Bandwidth accounting (RAM-only) ========== */
+const bw = new Map(); // serverId -> {inTotal,outTotal,window:[],lastTick}
+const BW_WINDOW_SECS = 120; // 2 minutes
+function getBw(id){
+  if(!bw.has(id)) bw.set(id, {inTotal:0,outTotal:0,window:[],lastTick:Date.now()});
+  return bw.get(id);
+}
+function addBytes(id, dir, bytes){
+  const s = getBw(id);
+  if(dir==='in') s.inTotal += bytes; else s.outTotal += bytes;
+  tickBw(id, bytes, dir);
+  renderBandwidthPanel(id);
+}
+function tickBw(id, bytes, dir){
+  // accumulate bytes into the current 1-second bucket
+  const s = getBw(id);
+  const now = Math.floor(Date.now()/1000);
+  const arr = s.window;
+  if(arr.length===0 || arr[arr.length-1].t !== now){
+    arr.push({t:now,inB:0,outB:0});
+    if(arr.length>BW_WINDOW_SECS) arr.shift();
+  }
+  const bucket = arr[arr.length-1];
+  if(dir==='in') bucket.inB += bytes; else bucket.outB += bytes;
+}
+function formatBytes(b){
+  const u=['B','KB','MB','GB','TB']; let i=0, n=b;
+  while(n>=1024 && i<u.length-1){ n/=1024; i++; }
+  return `${n.toFixed(n<10&&i>0?1:0)} ${u[i]}`;
+}
+
+/* ========== UI bindings ========== */
 const listView = document.getElementById('listView');
 const detailView = document.getElementById('detailView');
 const serverGrid = document.getElementById('serverGrid');
@@ -223,74 +248,302 @@ const chatName = document.getElementById('chatName');
 const chatMsg = document.getElementById('chatMsg');
 const sendChatBtn = document.getElementById('sendChat');
 
+let currentDetailId = null;
 document.getElementById('totalServers').textContent = TOTAL_SERVERS.toLocaleString();
 
-let currentDetailId = null;
-
-// Render a page of server cards (paged display only — doesn't allocate servers until opened)
-function renderServerPage(start, size){ serverGrid.innerHTML=''; start = Math.max(0, Number(start)||0); size = Math.min(500, Math.max(1, Number(size)||100)); for(let i=0;i<size;i++){ const id = start + i; if(id >= TOTAL_SERVERS) break; const card = document.createElement('div'); card.className='server-card'; card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>ID ${id}</strong><div class=\"muted\">owner: owner_${id%10000}</div></div><div><button class=\"mini openBtn\" data-id=\"${id}\">Open</button></div></div>`; serverGrid.appendChild(card); } // attach open listeners
-  serverGrid.querySelectorAll('.openBtn').forEach(btn=> btn.onclick = ()=> openServer(btn.dataset.id) ); }
-
-// Open a server into detail view
-async function openServer(serverId){ currentDetailId = Number(serverId); detailIdEl.textContent = currentDetailId; listView.classList.add('hidden'); detailView.classList.remove('hidden'); await renderDetail(currentDetailId); }
-
-async function closeDetail(){ currentDetailId = null; detailIdEl.textContent='-'; detailView.classList.add('hidden'); listView.classList.remove('hidden'); }
-
-// Render server detail (info, files, chat)
-async function renderDetail(serverId){ const srv = await loadServer(serverId);
-  // info
-  serverInfoEl.innerHTML = `\
-    <div><strong>ID:</strong> ${srv.id}</div>\
-    <div><strong>Owner:</strong> ${srv.meta.owner}</div>\
-    <div><strong>Created:</strong> ${srv.meta.createdAt}</div>\
-    <div class=\"muted\">Files: ${srv.files.length} • Chat messages: ${srv.chat.length}</div>\
-  `;
-  // files list
-  fileAreaEl.innerHTML=''; const list=document.createElement('div'); list.style.display='flex'; list.style.flexDirection='column'; list.style.gap='6px'; const files=srv.files; const limit=Math.min(files.length, FILES_PREVIEW);
-  for(let i=0;i<limit;i++){ const f=files[i]; const row=document.createElement('div'); row.className='file-row'; row.innerHTML = `<div style=\"flex:1\">${escapeHtml(f.name)} <span class=\"muted\">(${f.size} bytes)</span></div>`; const chk=document.createElement('input'); chk.type='checkbox'; chk.dataset.index=i; const btnDownload=document.createElement('button'); btnDownload.textContent='Download'; btnDownload.className='mini'; btnDownload.onclick=()=> simulateDownload(f); const btnDelete=document.createElement('button'); btnDelete.textContent='Delete'; btnDelete.className='mini'; btnDelete.onclick = async ()=>{ if(!confirm('Delete file '+f.name+'?')) return; srv.files.splice(i,1); await persistServer(srv); await renderDetail(serverId); }; row.appendChild(chk); row.appendChild(btnDownload); row.appendChild(btnDelete); list.appendChild(row); }
-  if(files.length>limit){ const more=document.createElement('div'); more.className='muted'; more.textContent = `... and ${files.length-limit} more files (preview)`; list.appendChild(more); }
-  fileAreaEl.appendChild(list);
-  // chat
-  renderChat(srv);
+/* ========== List rendering ========== */
+function renderServerPage(start, size){
+  serverGrid.innerHTML='';
+  start = Math.max(0, Number(start)||0);
+  size = Math.min(500, Math.max(1, Number(size)||100));
+  for(let i=0;i<size;i++){
+    const id = start + i; if(id >= TOTAL_SERVERS) break;
+    const card = document.createElement('div');
+    card.className='server-card';
+    card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center">
+        <div><strong>ID ${id}</strong><div class="muted">owner: owner_${id%10000}</div></div>
+        <div><button class="mini openBtn" data-id="${id}">Open</button></div>
+      </div>`;
+    serverGrid.appendChild(card);
+  }
+  serverGrid.querySelectorAll('.openBtn').forEach(btn=> btn.onclick = ()=> openServer(btn.dataset.id) );
 }
 
+/* ========== Detail rendering ========== */
+async function openServer(serverId){
+  currentDetailId = Number(serverId);
+  detailIdEl.textContent = currentDetailId;
+  listView.classList.add('hidden');
+  detailView.classList.remove('hidden');
+  setupChannels(currentDetailId); // initialize chat + traffic channels
+  await renderDetail(currentDetailId);
+}
+async function closeDetail(){
+  currentDetailId = null;
+  detailIdEl.textContent='-';
+  detailView.classList.add('hidden');
+  listView.classList.remove('hidden');
+}
 function escapeHtml(s){ return String(s).replace(/[&<>\"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[c]); }
 
-function simulateDownload(file){ const content = `Simulated file: ${file.name}
-size:${file.size}
-hash:${file.hash || 'na'}`; const blob=new Blob([content],{type:'text/plain'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=file.name; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); }
+async function renderDetail(serverId){
+  const srv = await loadServer(serverId);
+  // Info + bandwidth panel scaffold
+  serverInfoEl.innerHTML = `
+    <div class="kv">
+      <div><strong>ID:</strong></div><div>${srv.id}</div>
+      <div><strong>Owner:</strong></div><div>${srv.meta.owner}</div>
+      <div><strong>Created:</strong></div><div>${srv.meta.createdAt}</div>
+      <div><strong>Files:</strong></div><div id="infoFiles">${srv.files.length}</div>
+      <div><strong>Chat msgs (RAM):</strong></div><div id="infoChat">${getChat(serverId).length}</div>
+    </div>
+    <div style="height:8px"></div>
+    <div class="card" style="background:#071832">
+      <div class="muted">Bandwidth (RAM, 2‑min rolling)</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px">
+        <div>Inbound: <strong id="bwIn-${serverId}">0 B</strong></div>
+        <div>Outbound: <strong id="bwOut-${serverId}">0 B</strong></div>
+      </div>
+      <div style="height:8px"></div>
+      <canvas id="bwCanvas-${serverId}" width="800" height="140" aria-label="Bandwidth chart"></canvas>
+      <div class="muted mini">Uploads count as inbound; downloads & shares (from this server) as outbound; chat contributes both ways.</div>
+    </div>
+  `;
+  renderBandwidthPanel(serverId);
 
-// Upload handling for detail view
-fileInput.onchange = async (e)=>{ if(currentDetailId===null) return alert('Open a server first'); const id = Number(currentDetailId); const srv = await loadServer(id); const files = Array.from(e.target.files); for(const f of files){ const entry = { name:f.name, size:f.size, createdAt:new Date().toISOString(), hash:(Math.random()*0xFFFFFF<<0).toString(16) }; srv.files.unshift(entry); } await persistServer(srv); await renderDetail(id); fileInput.value=''; }
+  // Files list
+  fileAreaEl.innerHTML='';
+  const list=document.createElement('div');
+  list.style.display='flex'; list.style.flexDirection='column'; list.style.gap='6px';
+  const files=srv.files; const limit=Math.min(files.length, FILES_PREVIEW);
+  for(let i=0;i<limit;i++){
+    const f=files[i];
+    const row=document.createElement('div'); row.className='file-row';
+    row.innerHTML = `<div style="flex:1">${escapeHtml(f.name)} <span class="muted">(${f.size} bytes)</span></div>`;
+    const chk=document.createElement('input'); chk.type='checkbox'; chk.dataset.index=i;
+    const btnDownload=document.createElement('button'); btnDownload.textContent='Download'; btnDownload.className='mini';
+    btnDownload.onclick=()=> simulateDownload(f, serverId);
+    const btnDelete=document.createElement('button'); btnDelete.textContent='Delete'; btnDelete.className='mini';
+    btnDelete.onclick = async ()=>{
+      if(!confirm('Delete file '+f.name+'?')) return;
+      srv.files.splice(i,1);
+      await persistServer(srv);
+      document.getElementById('infoFiles').textContent = srv.files.length;
+      await renderDetail(serverId);
+    };
+    row.appendChild(chk); row.appendChild(btnDownload); row.appendChild(btnDelete);
+    list.appendChild(row);
+  }
+  if(files.length>limit){
+    const more=document.createElement('div'); more.className='muted';
+    more.textContent = `... and ${files.length-limit} more files (preview)`;
+    list.appendChild(more);
+  }
+  fileAreaEl.appendChild(list);
 
-// Share selected files to another server (copy)
-shareSelectedBtn.onclick = async ()=>{ if(currentDetailId===null) return alert('Open a server first'); const fromId = Number(currentDetailId); const toId = Number(shareToInput.value); if(Number.isNaN(toId) || toId<0 || toId>=TOTAL_SERVERS) return alert('Invalid target server id'); const fromSrv = await loadServer(fromId); const checks = Array.from(fileAreaEl.querySelectorAll('input[type=checkbox]')).filter(c=>c.checked); if(checks.length===0) return alert('No files selected'); const toSrv = await loadServer(toId); for(const c of checks){ const idx = Number(c.dataset.index); const f = Object.assign({}, fromSrv.files[idx]); f.createdAt = new Date().toISOString(); toSrv.files.unshift(f); } await persistServer(toSrv); alert(`Shared ${checks.length} file(s) to server ${toId}`); }
+  // Chat
+  renderChat(serverId);
+}
 
-// Delete selected files
-deleteSelectedBtn.onclick = async ()=>{ if(currentDetailId===null) return alert('Open a server first'); const id=Number(currentDetailId); const srv = await loadServer(id); const checks = Array.from(fileAreaEl.querySelectorAll('input[type=checkbox]')).filter(c=>c.checked); if(checks.length===0) return alert('No files selected'); // delete highest indices first to keep indices stable
+/* ========== Bandwidth UI ========== */
+function renderBandwidthPanel(id){
+  // numbers
+  const s = getBw(id);
+  const inEl = document.getElementById(`bwIn-${id}`);
+  const outEl = document.getElementById(`bwOut-${id}`);
+  if(inEl) inEl.textContent = formatBytes(s.inTotal);
+  if(outEl) outEl.textContent = formatBytes(s.outTotal);
+
+  // chart
+  const canvas = document.getElementById(`bwCanvas-${id}`);
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // axes
+  ctx.globalAlpha = 0.4;
+  ctx.beginPath(); ctx.moveTo(30,10); ctx.lineTo(30,130); ctx.lineTo(790,130); ctx.stroke();
+  ctx.globalAlpha = 1;
+
+  // compute max
+  const arr = getBw(id).window;
+  const maxBps = Math.max(1, ...arr.map(a=>Math.max(a.inB, a.outB)));
+  const scaleY = (v)=>130 - (120 * (v/maxBps));
+  const scaleX = (i)=>30 + (i * ((760)/(BW_WINDOW_SECS-1)));
+
+  // inbound line
+  ctx.beginPath();
+  for(let i=0;i<arr.length;i++){
+    const x = scaleX(i), y = scaleY(arr[i].inB);
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.stroke(); // default color
+
+  // outbound line
+  ctx.beginPath();
+  for(let i=0;i<arr.length;i++){
+    const x = scaleX(i), y = scaleY(arr[i].outB);
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.stroke(); // second line, default color (browser assigns different default? still fine)
+}
+
+/* ========== File Ops (simulate download; bandwidth + cross-tab traffic ping) ========== */
+function simulateDownload(file, serverId){
+  const content = `Simulated file: ${file.name}\nsize:${file.size}\nhash:${file.hash || 'na'}`;
+  const blob=new Blob([content],{type:'text/plain'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=file.name; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  addBytes(serverId,'out', file.size);
+  // notify other tabs to update numbers (no payload needed)
+  postTraffic(serverId, {type:'download', bytes:file.size, dir:'out'});
+}
+
+/* ========== Upload / Share / Delete bindings ========== */
+fileInput.onchange = async (e)=>{
+  if(currentDetailId===null) return alert('Open a server first');
+  const id = Number(currentDetailId);
+  const srv = await loadServer(id);
+  const files = Array.from(e.target.files);
+  for(const f of files){
+    const entry = { name:f.name, size:f.size, createdAt:new Date().toISOString(), hash:(Math.random()*0xFFFFFF<<0).toString(16) };
+    srv.files.unshift(entry);
+    addBytes(id,'in', f.size);
+  }
+  await persistServer(srv);
+  document.getElementById('infoFiles').textContent = srv.files.length;
+  await renderDetail(id);
+  fileInput.value='';
+  postTraffic(id, {type:'upload', bytes: files.reduce((a,b)=>a+b.size,0), dir:'in'});
+};
+
+shareSelectedBtn.onclick = async ()=>{
+  if(currentDetailId===null) return alert('Open a server first');
+  const fromId = Number(currentDetailId);
+  const toId = Number(shareToInput.value);
+  if(Number.isNaN(toId) || toId<0 || toId>=TOTAL_SERVERS) return alert('Invalid target server id');
+  const fromSrv = await loadServer(fromId);
+  const checks = Array.from(fileAreaEl.querySelectorAll('input[type=checkbox]')).filter(c=>c.checked);
+  if(checks.length===0) return alert('No files selected');
+  const toSrv = await loadServer(toId);
+
+  let bytes=0;
+  for(const c of checks){
+    const idx = Number(c.dataset.index);
+    const f = Object.assign({}, fromSrv.files[idx]);
+    bytes += f.size||0;
+    f.createdAt = new Date().toISOString();
+    toSrv.files.unshift(f);
+  }
+  await persistServer(toSrv);
+  alert(`Shared ${checks.length} file(s) to server ${toId}`);
+
+  // bandwidth: outbound on fromId, inbound on toId
+  addBytes(fromId,'out', bytes);
+  postTraffic(fromId, {type:'share-out', bytes, dir:'out'});
+  addBytes(toId,'in', bytes);
+  postTraffic(toId, {type:'share-in', bytes, dir:'in'});
+};
+
+deleteSelectedBtn.onclick = async ()=>{
+  if(currentDetailId===null) return alert('Open a server first');
+  const id=Number(currentDetailId);
+  const srv = await loadServer(id);
+  const checks = Array.from(fileAreaEl.querySelectorAll('input[type=checkbox]')).filter(c=>c.checked);
+  if(checks.length===0) return alert('No files selected');
   const indices = checks.map(c=>Number(c.dataset.index)).sort((a,b)=>b-a);
   for(const idx of indices) srv.files.splice(idx,1);
   await persistServer(srv);
+  document.getElementById('infoFiles').textContent = srv.files.length;
   await renderDetail(id);
-}
+};
 
-// Clear persistence for current detail
-clearDetailPersistBtn.onclick = async ()=>{ if(currentDetailId===null) return; if(!confirm('Clear persisted changes for server '+currentDetailId+'?')) return; await clearPersist(currentDetailId); await renderDetail(currentDetailId); }
+/* ========== Reset Files (chat stays RAM anyway) ========== */
+clearDetailPersistBtn.onclick = async ()=>{
+  if(currentDetailId===null) return;
+  if(!confirm('Reset files for server '+currentDetailId+'?')) return;
+  await clearPersist(currentDetailId);
+  await renderDetail(currentDetailId);
+};
 
-// Chat send
-sendChatBtn.onclick = async ()=>{ if(currentDetailId===null) return alert('Open a server first'); const id = Number(currentDetailId); const name = (chatName.value || 'anon').trim(); const text = (chatMsg.value || '').trim(); if(!text) return; chatMsg.value=''; const srv = await loadServer(id); const msg = { name, text, ts: new Date().toLocaleString() }; srv.chat.push(msg); if(srv.chat.length>2000) srv.chat.splice(0, srv.chat.length-2000); await persistServer(srv); renderChat(srv); }
-function renderChat(server){ chatArea.innerHTML=''; for(const m of server.chat.slice(-500)){ const el=document.createElement('div'); el.className='chat-msg'; el.innerHTML = `<strong>${escapeHtml(m.name)}</strong> <span class="muted mini">${m.ts}</span><div>${escapeHtml(m.text)}</div>`; chatArea.appendChild(el); } chatArea.scrollTop = chatArea.scrollHeight; }
-
-// Navigation & list handlers
+/* ========== Navigation ========== */
 renderPageBtn.onclick = ()=> { renderServerPage(Number(pageStartInput.value||0), Number(pageSizeInput.value||100)); };
 openIdBtn.onclick = ()=> { const id = Number(gotoInput.value); if(Number.isNaN(id)||id<0||id>=TOTAL_SERVERS) return alert('Invalid server id'); openServer(id); };
 backToListBtn.onclick = ()=> closeDetail();
 prevServerBtn.onclick = ()=> { if(currentDetailId===null) return; openServer(Math.max(0, currentDetailId-1)); };
 nextServerBtn.onclick = ()=> { if(currentDetailId===null) return; openServer(Math.min(TOTAL_SERVERS-1, currentDetailId+1)); };
 
-// initial render
-renderServerPage(Number(pageStartInput.value||0), Number(pageSizeInput.value||100)); document.getElementById('gotoId').value=''; updateCacheUI();
+/* ========== Chat send/render (RAM + BroadcastChannel) ========== */
+let chatBC=null, trafficBC=null;
+function setupChannels(id){
+  if(chatBC) chatBC.close();
+  if(trafficBC) trafficBC.close();
+  chatBC = new BroadcastChannel(chatChannelName(id));
+  trafficBC = new BroadcastChannel(trafficChannelName(id));
 
+  chatBC.onmessage = (ev)=>{
+    const {name,text,ts,bytes} = ev.data||{};
+    const chat = getChat(id);
+    chat.push({name,text,ts});
+    // inbound bytes counted for receiving tabs
+    addBytes(id,'in', bytes||estimateChatBytes(name,text));
+    const infoChat = document.getElementById('infoChat'); if(infoChat) infoChat.textContent = chat.length;
+    if(Number(detailIdEl.textContent)===id) renderChat(id);
+  };
+  trafficBC.onmessage = (ev)=>{
+    const {bytes,dir} = ev.data||{};
+    if(typeof bytes==='number' && (dir==='in' || dir==='out')) addBytes(id,dir,bytes);
+  };
+}
+function postTraffic(id, payload){
+  if(!trafficBC || Number(detailIdEl.textContent)!==id) return;
+  try{ trafficBC.postMessage(payload); }catch{}
+}
+function estimateChatBytes(name,text){
+  // very rough: UTF-8 bytes ~ length; include tiny header
+  return (name?.length||0) + (text?.length||0) + 16;
+}
+sendChatBtn.onclick = ()=>{
+  if(currentDetailId===null) return alert('Open a server first');
+  const id = Number(currentDetailId);
+  const name = (chatName.value || 'anon').trim();
+  const text = (chatMsg.value || '').trim();
+  if(!text) return;
+  chatMsg.value='';
+  const ts = new Date().toLocaleString();
+  const chat = getChat(id);
+  const msg = {name,text,ts};
+  chat.push(msg); // local append
+  // outbound bytes for sender
+  const bytes = estimateChatBytes(name,text);
+  addBytes(id,'out', bytes);
+  // broadcast to other tabs
+  if(chatBC) { try{ chatBC.postMessage({...msg,bytes}); }catch{} }
+  const infoChat = document.getElementById('infoChat'); if(infoChat) infoChat.textContent = chat.length;
+  renderChat(id);
+};
+function renderChat(serverId){
+  if(Number(detailIdEl.textContent)!==serverId) return;
+  const msgs = getChat(serverId);
+  chatArea.innerHTML='';
+  for(const m of msgs.slice(-500)){
+    const el=document.createElement('div');
+    el.className='chat-msg';
+    el.innerHTML = `<strong>${escapeHtml(m.name)}</strong> <span class="muted mini">${m.ts}</span><div>${escapeHtml(m.text)}</div>`;
+    chatArea.appendChild(el);
+  }
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+/* ========== Bandwidth ticker redraw ========== */
+setInterval(()=>{
+  if(currentDetailId!==null) renderBandwidthPanel(currentDetailId);
+}, 1000);
+
+/* ========== Initial render ========== */
+renderServerPage(Number(pageStartInput.value||0), Number(pageSizeInput.value||100));
+document.getElementById('gotoId').value='';
+updateCacheUI();
 </script>
 </body>
 </html>
