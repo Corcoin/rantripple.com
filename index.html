@@ -24,9 +24,30 @@ Author: ChatGPT — production-ready demo. Extend with WebSocket or WebRTC for r
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+  
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>RantRipple Cloud Datacenter  — Clickable Servers</title>
 <style>
+  @media (max-width: 768px) {
+  body { padding: 10px; }
+  header { flex-direction: column; align-items: flex-start; }
+  .controls { flex-direction: column; align-items: stretch; width: 100%; }
+  .toolbar { flex-direction: column; align-items: stretch; gap: 6px; }
+  input, button, select, textarea {
+    font-size: 16px; /* prevents zoom on iOS */
+    width: 100%;
+  }
+  .server-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .card { padding: 10px; }
+  .chat { height: 200px; }
+}
+
+@media (max-width: 480px) {
+  .server-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  .chat { height: 180px; }
+  .toolbar, .controls { gap: 4px; }
+}
+
   :root{font-family:Inter,system-ui,Segoe UI,Roboto,Arial}
   body{margin:0;padding:18px;background:#071028;color:#e6eef8}
   .app{max-width:1200px;margin:0 auto}
